@@ -1,0 +1,107 @@
+[debug] [2021-05-15T18:43:20.421Z] ----------------------------------------------------------------------
+[debug] [2021-05-15T18:43:20.423Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Esteb\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-05-15T18:43:20.423Z] CLI Version:   9.10.2
+[debug] [2021-05-15T18:43:20.423Z] Platform:      win32
+[debug] [2021-05-15T18:43:20.423Z] Node Version:  v14.10.0
+[debug] [2021-05-15T18:43:20.424Z] Time:          Sat May 15 2021 15:43:20 GMT-0300 (hora estándar de Argentina)
+[debug] [2021-05-15T18:43:20.424Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-05-15T18:43:20.428Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-15T18:43:20.428Z] > authorizing via signed-in user (estebanlimas@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  E:\pc\lab4\clinica
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2021-05-15T18:43:55.299Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2021-05-15T18:43:56.474Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2021-05-15T18:43:56.474Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project clinica-d1d2c (clinica) 
+[info] 
+=== Database Setup
+[info] i  database: ensuring required API firebasedatabase.googleapis.com is enabled... 
+[debug] [2021-05-15T18:43:59.732Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-05-15T18:43:59.732Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-05-15T18:43:59.858Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Sat, 15 May 2021 18:43:59 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-15T18:43:59.863Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/clinica-d1d2c/services/firebasedatabase.googleapis.com  
+ 
+[debug] [2021-05-15T18:44:01.075Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 15 May 2021 18:44:00 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[warn] !  database: missing required API firebasedatabase.googleapis.com. Enabling now... 
+[debug] [2021-05-15T18:44:01.076Z] >>> HTTP REQUEST POST https://serviceusage.googleapis.com/v1/projects/clinica-d1d2c/services/firebasedatabase.googleapis.com:enable  
+ 
+[debug] [2021-05-15T18:44:02.827Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 15 May 2021 18:44:02 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-15T18:44:12.837Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/clinica-d1d2c/services/firebasedatabase.googleapis.com  
+ 
+[debug] [2021-05-15T18:44:14.025Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 15 May 2021 18:44:13 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] +  database: required API firebasedatabase.googleapis.com is enabled 
+[info] 
+[debug] [2021-05-15T18:44:14.028Z] > refreshing access token with scopes: []
+[debug] [2021-05-15T18:44:14.028Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-05-15T18:44:14.121Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Sat, 15 May 2021 18:44:13 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-15T18:44:14.127Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/clinica-d1d2c [none]
+[debug] [2021-05-15T18:44:15.204Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/clinica-d1d2c 200
+[debug] [2021-05-15T18:44:15.204Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/clinica-d1d2c {"projectId":"clinica-d1d2c","projectNumber":"790692960313","displayName":"clinica","name":"projects/clinica-d1d2c","resources":{"hostingSite":"clinica-d1d2c","storageBucket":"clinica-d1d2c.appspot.com","locationId":"southamerica-east1"},"state":"ACTIVE"}
+[info] 
+[info] Firebase Realtime Database Security Rules allow you to define how your data should be
+[info] structured and when your data can be read from and written to.
+[info] 
+[info] +  Default rules have been written to database.rules.json. 
+[info] Future modifications to database.rules.json will update Realtime Database Security Rules when you run
+[info] firebase deploy.
+[info] 
+=== Firestore Setup
+[debug] [2021-05-15T18:44:36.536Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-05-15T18:44:36.536Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-05-15T18:44:36.657Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Sat, 15 May 2021 18:44:36 GMT","pragma":"no-cache","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-15T18:44:36.667Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/clinica-d1d2c/services/firestore.googleapis.com  
+ 
+[debug] [2021-05-15T18:44:37.859Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 15 May 2021 18:44:37 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-15T18:44:37.860Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/clinica-d1d2c  
+ 
+[debug] [2021-05-15T18:44:38.499Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 15 May 2021 18:44:38 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-15T18:44:38.499Z] database_type: CLOUD_FIRESTORE
+[debug] [2021-05-15T18:44:38.499Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-15T18:44:38.499Z] > authorizing via signed-in user (estebanlimas@gmail.com)
+[debug] [2021-05-15T18:44:38.499Z] [iam] checking project clinica-d1d2c for permissions ["firebase.projects.get"]
+[debug] [2021-05-15T18:44:38.500Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/clinica-d1d2c:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-05-15T18:44:39.539Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 15 May 2021 18:44:39 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=940","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] Firestore Security Rules allow you to define how and when to allow
+[info] requests. You can keep these rules in your project directory
+[info] and publish them with firebase deploy.
+[info] 
+[debug] [2021-05-15T18:44:57.864Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/clinica-d1d2c/releases?pageSize=10&pageToken=  
+ 
+[debug] [2021-05-15T18:44:58.838Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 15 May 2021 18:44:58 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-15T18:44:58.839Z] Found ruleset: projects/clinica-d1d2c/rulesets/ca8d43a2-05b1-48e9-978a-847262d83640
+[debug] [2021-05-15T18:44:58.839Z] >>> HTTP REQUEST GET https://firebaserules.googleapis.com/v1/projects/clinica-d1d2c/rulesets/ca8d43a2-05b1-48e9-978a-847262d83640  
+ 
+[debug] [2021-05-15T18:44:59.777Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 15 May 2021 18:44:59 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-05-15T18:44:59.779Z] Error: EISDIR: illegal operation on a directory, open 'E:\pc\lab4\clinica'
+    at Object.openSync (fs.js:465:3)
+    at Object.writeFileSync (fs.js:1416:35)
+    at Object.createFileSync (C:\Users\Esteb\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\fs-extra\lib\ensure\file.js:43:6)
+    at Config.writeProjectFile (C:\Users\Esteb\AppData\Roaming\npm\node_modules\firebase-tools\lib\config.js:155:8)
+    at C:\Users\Esteb\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\firestore\rules.js:50:27
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
+    at async Object.doSetup [as firestore] (C:\Users\Esteb\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\firestore\index.js:35:5)
+    at async init (C:\Users\Esteb\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\index.js:19:9)
+[error] 
+[error] Error: An unexpected error has occurred.
