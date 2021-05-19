@@ -4,6 +4,11 @@ import { CommonModule } from '@angular/common';
 import { SesionRoutingModule } from './sesion-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -13,7 +18,13 @@ import { RegisterComponent } from './register/register.component';
   ],
   imports: [
     CommonModule,
-    SesionRoutingModule
+    SesionRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatIconModule,
+    MatFormFieldModule
   ],
   exports:[
     RegisterComponent,
