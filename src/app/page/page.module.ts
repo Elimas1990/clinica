@@ -3,15 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { PageRoutingModule } from './page-routing.module';
 import { BienvenidoComponent } from './bienvenido/bienvenido.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
   declarations: [
-    BienvenidoComponent
+    BienvenidoComponent,
+    UsuariosComponent
   ],
   imports: [
     CommonModule,
-    PageRoutingModule
+    PageRoutingModule,
+    DataTablesModule
   ]
 })
 export class PageModule { }

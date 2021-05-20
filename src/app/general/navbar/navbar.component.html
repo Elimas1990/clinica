@@ -12,17 +12,45 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/sesion/login">Login</a>
-            </li>
-            <li class="nav-item">
+     
+        
+          <li class="nav-item">
                 <a class="nav-link" routerLink="/sesion/register">Register</a>
+          </li>
+          
+          
+          <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex" *ngIf="user | async as user;else login">
+            <li class="nav-item" *ngIf="user">
+                <a class="nav-link" (click)="desloguear()">Logout</a>
+            </li>
+            
+            
+            <li class="nav-item">
+                <a class="nav-link">{{user?.email}}</a>
             </li>
             <li class="nav-item">
-                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#registerModal">
-                    Register
-                </button>
-            </li>
+              <a class="nav-link">{{user2.nombre }}</a>
+          </li>
+        </ul>
+        <ng-template #login>
+            <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex" >
+                <li class="nav-item">
+                    <a class="nav-link" routerLink='/sesion/login' >Login</a>
+                </li>
+            </ul>
+        </ng-template>
+
+
+
+
+
+          <li class="nav-item">
+              <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#registerModal">
+                  Register
+              </button>
+          </li>
+
+
         </ul>
       </div>
     </div>

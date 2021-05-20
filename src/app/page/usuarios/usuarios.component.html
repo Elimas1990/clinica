@@ -1,0 +1,41 @@
+<div class="row justify-content-md-center">
+    <div class="col-lg-8">
+        <h1 class="text-center mt-3">Usuarios</h1>
+        <table *ngIf="render" class="table table-primary table-striped" datatable [dtOptions]="dtOptions" id="tabla-resultados">
+            <thead class="table-dark">
+                <tr >
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Edad</th>
+                    <th>Tipo User</th>
+                    <th>Email</th>
+                    <th>DNI</th>
+                    <th>Especialidad</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of listaUsers">
+                    <td>{{user.nombre}}</td>
+                    <td>{{user.apellido}}</td>
+                    <td>{{user.edad}}</td>
+                    <td>{{user.tipouser}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.dni}}</td>
+                    <td>{{user.especialidad}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-danger" *ngIf="!user.estado && user.tipouser =='Profesional'" (click)="statusProfesional(user.email,user.estado)">Inactivo</button> 
+                            <button class="btn btn-success" *ngIf="user.estado && user.tipouser =='Profesional'" (click)="statusProfesional(user.email,user.estado)">Activo</button> 
+                        </div>
+                        
+                    </td>
+                    <!--<td>{{user.fecha.toDate() | date:'dd/MM/yyyy h:mm:ss a'}}</td>-->
+
+                    
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+</div>

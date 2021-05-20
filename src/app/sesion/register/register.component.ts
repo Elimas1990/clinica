@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Paciente, Profesional } from 'src/app/clases/usuario';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -49,7 +50,6 @@ export class RegisterComponent implements OnInit {
     validators:this.validatePass
   })
 
-  //autocompleteEspecialidad:string[]=['traumatologia','dermatologia','clinico','clinico2','clinico3','pediatria','oncologia']
   visible = true;
   selectable = true;
   removable = true;
@@ -64,7 +64,8 @@ export class RegisterComponent implements OnInit {
   @ViewChild('especialidadInput') especialidadInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor(private authService:AuthService) {
+  constructor(private authService:AuthService,
+    private route:Router) {
     this.filteredEspecialidades = this.especialidadCtrl.valueChanges.pipe(
         startWith(null),
         map((especialidad: string | null) => especialidad ? this._filter(especialidad) : this.especialidades.slice()));
@@ -73,30 +74,24 @@ export class RegisterComponent implements OnInit {
   add(event: MatChipInputEvent): void {
     const valor = (event.value || '').trim();
 
-    // Add our fruit
     if (valor) {
-      //this.especialidadElegida.push(valor);
       this.formRegistroProfesional.get('especialidad').value.push(valor)
     }
 
-    // Clear the input value
     //event.chipInput!.clear();
 
     this.especialidadCtrl.setValue(null);
   }
 
   remove(especialidad: string): void {
-    //const index = this.especialidadElegida.indexOf(especialidad);
     const index = this.formRegistroProfesional.get('especialidad').value.indexOf(especialidad);
     if (index >= 0) {
-      //this.especialidadElegida.splice(index, 1);
       this.formRegistroProfesional.get('especialidad').value.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.formRegistroProfesional.get('especialidad').value.push(event.option.viewValue);
-    //this.especialidadElegida.push(event.option.viewValue);
     this.especialidadInput.nativeElement.value = '';
     this.especialidadCtrl.setValue(null);
   }
@@ -124,7 +119,7 @@ export class RegisterComponent implements OnInit {
           obrasocial:formulario.getRawValue().obrasocial,
           img:formulario.getRawValue().foto1,
           img2:formulario.getRawValue().foto2,
-          estado:false,
+          estado:true,
           tipouser:'Paciente'
         }
         aRegistrar=this.usuarioPaciente
@@ -152,11 +147,12 @@ export class RegisterComponent implements OnInit {
           this.mensajeError=null
           delete aRegistrar.pass;
           this.authService.create(aRegistrar)
+          this.route.navigate(['sesion/verifica-email'])
         }
       })
     }
     catch(error){
-      //console.log(error)
+      console.log(error)
     }
     
   }
@@ -169,7 +165,6 @@ export class RegisterComponent implements OnInit {
 
   arrayVacio(control: AbstractControl):null |object {
     
-    //console.log(control)
     if(control.value.length == 0){
       return {arrayVacio: false,invalid: true};
     }else{
