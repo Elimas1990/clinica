@@ -2,25 +2,31 @@
     <div class="row justify-content-md-center">
         <div class="col-lg-4">
             <h1 class="text-center my-3">Login</h1>
-            <div class="input-group my-3 shadow">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                    </span>
-                </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" ><i class="fas fa-user"></i></span>
                 <input type="text" class="form-control" placeholder="Usuario" [(ngModel)]="userLogueado.email" />
             </div>
-            <div class="input-group my-3 shadow">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                    </span>
-                </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" ><i class="fas fa-lock"></i></span>
                 <input type="password"  class="form-control" placeholder="Contraseña" [(ngModel)]="userLogueado.pass"/>
             </div>
+
             <div class="text-center my-3">
                 <div class="btn-group shadow">
                     <button type="button" class="btn btn-success" (click)="loginUsuario()">Ingresar</button>
-                    <button type="button" class="btn btn-info" (click)="autoCompletarUsuario()">Autocompletar</button>
+                    <div class="btn-group" role="group">
+                      <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Autocompletar
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        <li><a class="dropdown-item" (click)="autoCompletarUsuario('admin')">Admin</a></li>
+                        <li><a class="dropdown-item" (click)="autoCompletarUsuario('paciente')">Paciente</a></li>
+                        <li><a class="dropdown-item" (click)="autoCompletarUsuario('profesional')">Profesional</a></li>
+                      </ul>
+                    </div>
                 </div>
+
+                  
             </div>
             <div *ngIf="errorUsuario" class="alert alert-danger box-msg" role="alert">
                 <strong>Error!</strong> Los datos ingresados incorrectos

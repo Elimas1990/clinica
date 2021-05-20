@@ -203,7 +203,76 @@
                 </div>
                 <button type="button" class="btn btn-success"  type="submit" (click)="guardarPaciente(formRegistroProfesional)" [disabled]="!formRegistroProfesional.valid">Generar Usuario</button>
             </form>
+
+            <form  *ngSwitchCase="'administracion'" [formGroup]="formRegistroAdmin" (ngSubmit)="formRegistroAdmin.valid">
+                <input type="text" placeholder="nombre" class="form-control my-3"
+                formControlName="nombre" 
+                [ngClass]="{'is-invalid':formRegistroAdmin.get('nombre').touched && formRegistroAdmin.get('nombre').invalid}"/>
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.get('nombre').errors?.required && formRegistroAdmin.get('nombre').touched">
+                    El nombre es requerido
+                </div>
+                <input type="text" placeholder="apellido" class="form-control my-3"
+                formControlName="apellido" 
+                [ngClass]="{'is-invalid':formRegistroAdmin.get('apellido').touched && formRegistroAdmin.get('apellido').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.get('apellido').errors?.required && formRegistroAdmin.get('apellido').touched">
+                    El apellido es requerido
+                </div>
+                <input type="email" placeholder="email" class="form-control my-3"
+                formControlName="email" 
+                [ngClass]="{'is-invalid':formRegistroAdmin.get('email').touched && formRegistroAdmin.get('email').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.get('email').errors?.required && formRegistroAdmin.get('email').touched">
+                    El email es requerido
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('email').errors?.email">
+                    El mail no es valido
+                </div>
+                <input type="number" placeholder="edad" class="form-control my-3"
+                formControlName="edad" 
+                [ngClass]="{'is-invalid':formRegistroAdmin.get('edad').touched && formRegistroAdmin.get('edad').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.get('edad').errors?.required && formRegistroAdmin.get('edad').touched">
+                    El edad es requerido
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.get('edad').errors?.min || formRegistroAdmin.get('edad').errors?.max && formRegistroAdmin.get('edad').touched">
+                    La edad debe ser mayor a 0 y menor a 99
+                </div>
+                <input type="number" placeholder="dni" class="form-control my-3"
+                formControlName="dni" 
+                [ngClass]="{'is-invalid':formRegistroAdmin.get('dni').touched && formRegistroAdmin.get('dni').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.get('dni').errors?.required && formRegistroAdmin.get('dni').touched">
+                    El dni es requerido
+                </div>
+               
+                <input type="password" placeholder="password" class="form-control my-3"
+                formControlName="pass" 
+                [ngClass]="{'is-invalid':formRegistroAdmin.get('pass').touched && formRegistroAdmin.get('pass').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.get('pass').errors?.required && formRegistroAdmin.get('pass').touched">
+                    La contraseña es requerida
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.get('pass').errors?.minlength && formRegistroAdmin.get('pass').touched">
+                    La contraseña debe tener como minimo 6 caracteres
+                </div>
+                <input type="password" placeholder="password2" class="form-control my-3"
+                formControlName="pass2"
+                [ngClass]="{'is-invalid':formRegistroAdmin.get('pass2').touched && formRegistroAdmin.get('pass2').invalid && formRegistroAdmin.errors?.coinciden}">
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.get('pass2').errors?.required && formRegistroAdmin.get('pass2').touched">
+                    La contraseña es requerida
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.get('pass2').errors?.minlength && formRegistroAdmin.get('pass2').touched">
+                    La contraseña debe tener como minimo 6 caracteres
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.errors?.coinciden">
+                    Las contraseñas no coinciden
+                </div>
+                <input type="file" placeholder="foto1" class="form-control my-3"
+                formControlName="foto1"
+                [ngClass]="{'is-invalid':formRegistroAdmin.get('foto1').touched && formRegistroAdmin.get('foto1').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroAdmin.get('foto1').errors?.required && formRegistroAdmin.get('foto1').touched">
+                    La primera foto es requerido
+                </div>
+                <button type="button" class="btn btn-success"  type="submit" (click)="guardarPaciente(formRegistroAdmin)" [disabled]="!formRegistroAdmin.valid">Generar Usuario</button>
+            </form>
         </div>
+        
         
         <div class="alert alert-danger" *ngIf='mensajeError'>{{mensajeError}}</div>
     </div>

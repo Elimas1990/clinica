@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 export class NavbarComponent implements OnInit {
 
   public user: Observable<any>=this.authService.auth.user;
-  public user2=JSON.parse(localStorage.getItem('user'))
+  public user2=localStorage.getItem('user')
  
   constructor(private authService:AuthService,
     private route:Router) {
@@ -36,6 +36,10 @@ export class NavbarComponent implements OnInit {
     catch(error){
       console.log(error)
     }
+  }
+
+  esAdmin(){
+    
   }
 
 }

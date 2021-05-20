@@ -22,8 +22,19 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  autoCompletarUsuario(){
-    this.userLogueado={email :'estebanlimas@hotmail.com',pass:'222222'}
+  autoCompletarUsuario(user){
+    switch(user){
+      case "admin":
+        this.userLogueado={email :'estebanlimas@hotmail.com',pass:'222222'}
+        break;
+      case "paciente":
+        this.userLogueado={email :'estebanlimas@hotmail.com',pass:'222222'}
+        break;
+      case "profesional":
+        this.userLogueado={email :'estebanlimas@gmail.com',pass:'222222'}
+        break;
+    }
+    
 
   }
   async loginUsuario(){

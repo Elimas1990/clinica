@@ -6,8 +6,9 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { AuthService } from 'src/app/servicios/auth.service';
-import { Paciente, Profesional } from 'src/app/clases/usuario';
+import { Admin, Paciente, Profesional } from 'src/app/clases/usuario';
 import { Router } from '@angular/router';
+import { EmitAndSemanticDiagnosticsBuilderProgram } from 'typescript';
 
 
 @Component({
@@ -56,7 +57,10 @@ export class RegisterComponent implements OnInit {
     edad:new FormControl('',[Validators.required,Validators.min(1),Validators.max(99)]),
     dni:new FormControl('',[Validators.required,Validators.minLength(6)]),
     pass:new FormControl('',[Validators.required,Validators.minLength(6)]),
+    pass2:new FormControl('',[Validators.required,Validators.minLength(6)]),
     foto1:new FormControl('',[Validators.required])
+  },{
+    validators:this.validatePass
   })
 
   visible = true;
@@ -69,6 +73,7 @@ export class RegisterComponent implements OnInit {
   especialidades:string[]=['traumatologia','dermatologia','clinico','clinico2','clinico3','pediatria','oncologia']
   usuarioProfesional:Profesional=new Profesional
   usuarioPaciente:Paciente=new Paciente
+  usuarioAdmin: Admin=new Admin
   centradoForm:string;
   @ViewChild('especialidadInput') especialidadInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -123,37 +128,54 @@ export class RegisterComponent implements OnInit {
   async guardarPaciente(formulario){
     try{
       let aRegistrar={pass:''}
-      if(this.tipoform){
-        this.usuarioPaciente={
-          nombre:formulario.getRawValue().nombre,
-          apellido:formulario.getRawValue().apellido,
-          email:formulario.getRawValue().email,
-          pass:formulario.getRawValue().pass,
-          edad:formulario.getRawValue().edad,
-          dni:formulario.getRawValue().dni,
-          obrasocial:formulario.getRawValue().obrasocial,
-          img:formulario.getRawValue().foto1,
-          img2:formulario.getRawValue().foto2,
-          estado:true,
-          tipouser:'Paciente'
-        }
-        aRegistrar=this.usuarioPaciente
-       
-      }else{
-        this.usuarioProfesional={
-          nombre:formulario.getRawValue().nombre,
-          apellido:formulario.getRawValue().apellido,
-          email:formulario.getRawValue().email,
-          pass:formulario.getRawValue().pass,
-          edad:formulario.getRawValue().edad,
-          dni:formulario.getRawValue().dni,
-          especialidad:formulario.getRawValue().especialidad,
-          img:formulario.getRawValue().foto1,
-          estado:false,
-          tipouser:'Profesional'
-        }
-        aRegistrar=this.usuarioProfesional
+      switch(this.tipoform){
+        case 'paciente':
+          this.usuarioPaciente={
+            nombre:formulario.getRawValue().nombre,
+            apellido:formulario.getRawValue().apellido,
+            email:formulario.getRawValue().email,
+            pass:formulario.getRawValue().pass,
+            edad:formulario.getRawValue().edad,
+            dni:formulario.getRawValue().dni,
+            obrasocial:formulario.getRawValue().obrasocial,
+            img:formulario.getRawValue().foto1,
+            img2:formulario.getRawValue().foto2,
+            estado:true,
+            tipouser:'Paciente'
+          }
+          aRegistrar=this.usuarioPaciente
+          break;
+        case 'profesional':
+          this.usuarioProfesional={
+            nombre:formulario.getRawValue().nombre,
+            apellido:formulario.getRawValue().apellido,
+            email:formulario.getRawValue().email,
+            pass:formulario.getRawValue().pass,
+            edad:formulario.getRawValue().edad,
+            dni:formulario.getRawValue().dni,
+            especialidad:formulario.getRawValue().especialidad,
+            img:formulario.getRawValue().foto1,
+            estado:false,
+            tipouser:'Profesional'
+          }
+          aRegistrar=this.usuarioProfesional
+          break;
+        case 'administracion':
+          this.usuarioAdmin={
+            nombre:formulario.getRawValue().nombre,
+            apellido:formulario.getRawValue().apellido,
+            email:formulario.getRawValue().email,
+            pass:formulario.getRawValue().pass,
+            edad:formulario.getRawValue().edad,
+            dni:formulario.getRawValue().dni,
+            img:formulario.getRawValue().foto1,
+            estado:true,
+            tipouser:'Administrativo'
+          }
+          aRegistrar=this.usuarioProfesional
+          break;
       }
+ 
       let respuesta=this.authService.register(aRegistrar)
       respuesta.then(x => {
         if(x.message){
