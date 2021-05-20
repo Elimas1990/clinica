@@ -5,6 +5,7 @@ import { PageRoutingModule } from './page-routing.module';
 import { BienvenidoComponent } from './bienvenido/bienvenido.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DataTablesModule } from 'angular-datatables';
+import { SesionModule } from '../sesion/sesion.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DataTablesModule } from 'angular-datatables';
   imports: [
     CommonModule,
     PageRoutingModule,
-    DataTablesModule
+    DataTablesModule,
+    SesionModule
   ]
 })
 export class PageModule { }

@@ -79,22 +79,14 @@ export class AuthService {
   cambiarInfo(email,mod) {
     
     const docRef=this.db.collection(this.dbpath, ref => ref.where('email','==', email ))
-    docRef.snapshotChanges().subscribe(x=> {
+    docRef.snapshotChanges().subscribe((x: any)=> {
       this.id=x[0].payload.doc.id
       console.log(mod)
       console.log(this.id)
       this.db.collection(this.dbpath).doc(this.id).update(mod);
     })
     
-    /*docRef.snapshotChanges().forEach((changes) => {
-      changes.map((a) => {
-        console.log(a)
-        id= a.payload.doc.id;
-     
-        this.db.collection(this.dbpath).doc(id).update(mod);
-      });
-    });*/
-    
+
   }
   async getCurrentUser(){
     return this.auth.authState.pipe(first()).toPromise();

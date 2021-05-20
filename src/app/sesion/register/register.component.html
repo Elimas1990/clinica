@@ -1,203 +1,210 @@
 <div class="row justify-content-md-center">
 
-    <div class="col-4">
+    <div  [ngClass]="centradoForm">
         <h1 class="m-3 text-center">Register</h1>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="radioForm"  [value]="true" checked [(ngModel)]="tipoform" >
+            <input class="form-check-input" type="radio" name="radioForm"  [value]="'paciente'"  [(ngModel)]="tipoform" >
             <label class="form-check-label" >Paciente</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="radioForm" [value]="false"  [(ngModel)]="tipoform">
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="radioForm" [value]="'profesional'"  [(ngModel)]="tipoform">
             <label class="form-check-label" >Profesional</label>
-          </div>
-        <form  *ngIf="tipoform" [formGroup]="formRegistroPaciente" (ngSubmit)="formRegistroPaciente.valid">
-            <input type="text" placeholder="nombre" class="form-control my-3"
-            formControlName="nombre" 
-            [ngClass]="{'is-invalid':formRegistroPaciente.get('nombre').touched && formRegistroPaciente.get('nombre').invalid}"/>
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('nombre').errors?.required && formRegistroPaciente.get('nombre').touched">
-                El nombre es requerido
-            </div>
-            <input type="text" placeholder="apellido" class="form-control my-3"
-            formControlName="apellido" 
-            [ngClass]="{'is-invalid':formRegistroPaciente.get('apellido').touched && formRegistroPaciente.get('apellido').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('apellido').errors?.required && formRegistroPaciente.get('apellido').touched">
-                El apellido es requerido
-            </div>
-            <input type="email" placeholder="email" class="form-control my-3"
-            formControlName="email" 
-            [ngClass]="{'is-invalid':formRegistroPaciente.get('email').touched && formRegistroPaciente.get('email').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('email').errors?.required && formRegistroPaciente.get('email').touched">
-                El email es requerido
-            </div>
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('email').errors?.email">
-                El mail no es valido
-            </div>
-            <input type="number" placeholder="edad" class="form-control my-3"
-            formControlName="edad" 
-            [ngClass]="{'is-invalid':formRegistroPaciente.get('edad').touched && formRegistroPaciente.get('edad').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('edad').errors?.required && formRegistroPaciente.get('edad').touched">
-                El edad es requerido
-            </div>
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('edad').errors?.min || formRegistroPaciente.get('edad').errors?.max && formRegistroPaciente.get('edad').touched">
-                La edad debe ser mayor a 0 y menor a 99
-            </div>
-            <input type="number" placeholder="dni" class="form-control my-3"
-            formControlName="dni" 
-            [ngClass]="{'is-invalid':formRegistroPaciente.get('dni').touched && formRegistroPaciente.get('dni').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('dni').errors?.required && formRegistroPaciente.get('dni').touched">
-                El dni es requerido
-            </div>
-            <input type="text" placeholder="obrasocial" class="form-control my-3"
-            formControlName="obrasocial" 
-            [ngClass]="{'is-invalid':formRegistroPaciente.get('obrasocial').touched && formRegistroPaciente.get('obrasocial').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('obrasocial').errors?.required && formRegistroPaciente.get('obrasocial').touched">
-                El obra social es requerido
-            </div>
-            <input type="password" placeholder="password" class="form-control my-3"
-            formControlName="pass" 
-            [ngClass]="{'is-invalid':formRegistroPaciente.get('pass').touched && formRegistroPaciente.get('pass').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('pass').errors?.required && formRegistroPaciente.get('pass').touched">
-                La contraseña es requerida
-            </div>
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('pass').errors?.minlength && formRegistroPaciente.get('pass').touched">
-                La contraseña debe tener como minimo 6 caracteres
-            </div>
-            <input type="password" placeholder="password2" class="form-control my-3"
-            formControlName="pass2"
-            [ngClass]="{'is-invalid':formRegistroPaciente.get('pass2').touched && formRegistroPaciente.get('pass2').invalid && formRegistroPaciente.errors?.coinciden}">
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('pass2').errors?.required && formRegistroPaciente.get('pass2').touched">
-                La contraseña es requerida
-            </div>
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('pass2').errors?.minlength && formRegistroPaciente.get('pass2').touched">
-                La contraseña debe tener como minimo 6 caracteres
-            </div>
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.errors?.coinciden">
-                Las contraseñas no coinciden
-            </div>
-            <input type="file" placeholder="foto1" class="form-control my-3"
-            formControlName="foto1"
-            [ngClass]="{'is-invalid':formRegistroPaciente.get('foto1').touched && formRegistroPaciente.get('foto1').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('foto1').errors?.required && formRegistroPaciente.get('foto1').touched">
-                La primera foto es requerido
-            </div>
-            <input type="file" placeholder="foto2" class="form-control my-3"
-            formControlName="foto2"
-            [ngClass]="{'is-invalid':formRegistroPaciente.get('foto2').touched && formRegistroPaciente.get('foto2').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('foto2').errors?.required && formRegistroPaciente.get('foto2').touched">
-                La segunda foto es requerido
-            </div>
-            <button type="button" class="btn btn-success"  type="submit" (click)="guardarPaciente(formRegistroPaciente)" [disabled]="!formRegistroPaciente.valid">Generar Usuario</button>
-        </form>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="radioForm" [value]="'administracion'"  [(ngModel)]="tipoform">
+            <label class="form-check-label" >Administracion</label>
+        </div>
+        <div [ngSwitch]="tipoform">
+            <form  *ngSwitchCase="'paciente'" [formGroup]="formRegistroPaciente" (ngSubmit)="formRegistroPaciente.valid">
+                <input type="text" placeholder="nombre" class="form-control my-3"
+                formControlName="nombre" 
+                [ngClass]="{'is-invalid':formRegistroPaciente.get('nombre').touched && formRegistroPaciente.get('nombre').invalid}"/>
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('nombre').errors?.required && formRegistroPaciente.get('nombre').touched">
+                    El nombre es requerido
+                </div>
+                <input type="text" placeholder="apellido" class="form-control my-3"
+                formControlName="apellido" 
+                [ngClass]="{'is-invalid':formRegistroPaciente.get('apellido').touched && formRegistroPaciente.get('apellido').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('apellido').errors?.required && formRegistroPaciente.get('apellido').touched">
+                    El apellido es requerido
+                </div>
+                <input type="email" placeholder="email" class="form-control my-3"
+                formControlName="email" 
+                [ngClass]="{'is-invalid':formRegistroPaciente.get('email').touched && formRegistroPaciente.get('email').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('email').errors?.required && formRegistroPaciente.get('email').touched">
+                    El email es requerido
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('email').errors?.email">
+                    El mail no es valido
+                </div>
+                <input type="number" placeholder="edad" class="form-control my-3"
+                formControlName="edad" 
+                [ngClass]="{'is-invalid':formRegistroPaciente.get('edad').touched && formRegistroPaciente.get('edad').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('edad').errors?.required && formRegistroPaciente.get('edad').touched">
+                    El edad es requerido
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('edad').errors?.min || formRegistroPaciente.get('edad').errors?.max && formRegistroPaciente.get('edad').touched">
+                    La edad debe ser mayor a 0 y menor a 99
+                </div>
+                <input type="number" placeholder="dni" class="form-control my-3"
+                formControlName="dni" 
+                [ngClass]="{'is-invalid':formRegistroPaciente.get('dni').touched && formRegistroPaciente.get('dni').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('dni').errors?.required && formRegistroPaciente.get('dni').touched">
+                    El dni es requerido
+                </div>
+                <input type="text" placeholder="obrasocial" class="form-control my-3"
+                formControlName="obrasocial" 
+                [ngClass]="{'is-invalid':formRegistroPaciente.get('obrasocial').touched && formRegistroPaciente.get('obrasocial').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('obrasocial').errors?.required && formRegistroPaciente.get('obrasocial').touched">
+                    El obra social es requerido
+                </div>
+                <input type="password" placeholder="password" class="form-control my-3"
+                formControlName="pass" 
+                [ngClass]="{'is-invalid':formRegistroPaciente.get('pass').touched && formRegistroPaciente.get('pass').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('pass').errors?.required && formRegistroPaciente.get('pass').touched">
+                    La contraseña es requerida
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('pass').errors?.minlength && formRegistroPaciente.get('pass').touched">
+                    La contraseña debe tener como minimo 6 caracteres
+                </div>
+                <input type="password" placeholder="password2" class="form-control my-3"
+                formControlName="pass2"
+                [ngClass]="{'is-invalid':formRegistroPaciente.get('pass2').touched && formRegistroPaciente.get('pass2').invalid && formRegistroPaciente.errors?.coinciden}">
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('pass2').errors?.required && formRegistroPaciente.get('pass2').touched">
+                    La contraseña es requerida
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('pass2').errors?.minlength && formRegistroPaciente.get('pass2').touched">
+                    La contraseña debe tener como minimo 6 caracteres
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.errors?.coinciden">
+                    Las contraseñas no coinciden
+                </div>
+                <input type="file" placeholder="foto1" class="form-control my-3"
+                formControlName="foto1"
+                [ngClass]="{'is-invalid':formRegistroPaciente.get('foto1').touched && formRegistroPaciente.get('foto1').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('foto1').errors?.required && formRegistroPaciente.get('foto1').touched">
+                    La primera foto es requerido
+                </div>
+                <input type="file" placeholder="foto2" class="form-control my-3"
+                formControlName="foto2"
+                [ngClass]="{'is-invalid':formRegistroPaciente.get('foto2').touched && formRegistroPaciente.get('foto2').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroPaciente.get('foto2').errors?.required && formRegistroPaciente.get('foto2').touched">
+                    La segunda foto es requerido
+                </div>
+                <button type="button" class="btn btn-success"  type="submit" (click)="guardarPaciente(formRegistroPaciente)" [disabled]="!formRegistroPaciente.valid">Generar Usuario</button>
+            </form>
+            
+            <form *ngSwitchCase="'profesional'" [formGroup]="formRegistroProfesional" (ngSubmit)="formRegistroProfesional.valid">
+                <input type="text" placeholder="nombre" class="form-control my-3"
+                formControlName="nombre" 
+                [ngClass]="{'is-invalid':formRegistroProfesional.get('nombre').touched && formRegistroProfesional.get('nombre').invalid}"/>
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('nombre').errors?.required && formRegistroProfesional.get('nombre').touched">
+                    El nombre es requerido
+                </div>
+                <input type="text" placeholder="apellido" class="form-control my-3"
+                formControlName="apellido" 
+                [ngClass]="{'is-invalid':formRegistroProfesional.get('apellido').touched && formRegistroProfesional.get('apellido').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('apellido').errors?.required && formRegistroProfesional.get('apellido').touched">
+                    El apellido es requerido
+                </div>
+                <input type="email" placeholder="email" class="form-control my-3"
+                formControlName="email" 
+                [ngClass]="{'is-invalid':formRegistroProfesional.get('email').touched && formRegistroProfesional.get('email').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('email').errors?.required && formRegistroProfesional.get('email').touched">
+                    El email es requerido
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('email').errors?.email && formRegistroProfesional.get('email').touched">
+                    El mail no es valido
+                </div>
+                <input type="number" placeholder="edad" class="form-control my-3"
+                formControlName="edad" 
+                [ngClass]="{'is-invalid':formRegistroProfesional.get('edad').touched && formRegistroProfesional.get('edad').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('edad').errors?.required && formRegistroProfesional.get('edad').touched">
+                    El edad es requerido
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('edad').errors?.min || formRegistroProfesional.get('edad').errors?.max && formRegistroProfesional.get('edad').touched">
+                    La edad debe ser mayor a 0 y menor a 99
+                </div>
+                <input type="number" placeholder="dni" class="form-control my-3"
+                formControlName="dni" 
+                [ngClass]="{'is-invalid':formRegistroProfesional.get('dni').touched && formRegistroProfesional.get('dni').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('dni').errors?.required && formRegistroProfesional.get('dni').touched">
+                    El dni es requerido
+                </div>
+    
+         
+                <mat-form-field class="example-chip-list" class="w-100">
+                    <mat-label>Especialidades</mat-label>
+                    <mat-chip-list #chipList aria-label="Especialidades" formControlName="especialidad">
+                      <mat-chip 
+                        *ngFor="let especial of formRegistroProfesional.get('especialidad').value"
+                        [selectable]="selectable"
+                        [removable]="removable"
+                        (removed)="remove(especial)">
+                        {{especial}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                      </mat-chip>
+                      <input 
+                        placeholder="Nueva especialidad..."
+                        #especialidadInput
+                        [formControl]="especialidadCtrl"
+                        [matAutocomplete]="auto"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                      <mat-option *ngFor="let especial of filteredEspecialidades | async" [value]="especial">
+                        {{especial}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+              
+               
+    
+    
+    
+    
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('especialidad').errors?.required && formRegistroProfesional.get('especialidad').touched">
+                    La especialidad es requerida
+                </div>
+                <input type="text" placeholder="obrasocial" class="form-control my-3"
+                formControlName="obrasocial" 
+                [ngClass]="{'is-invalid':formRegistroProfesional.get('obrasocial').touched && formRegistroProfesional.get('obrasocial').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('obrasocial').errors?.required && formRegistroProfesional.get('obrasocial').touched">
+                    El obra social es requerido
+                </div>
+                <input type="password" placeholder="password" class="form-control my-3"
+                formControlName="pass" 
+                [ngClass]="{'is-invalid':formRegistroProfesional.get('pass').touched && formRegistroProfesional.get('pass').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('pass').errors?.required && formRegistroProfesional.get('pass').touched">
+                    La contraseña es requerida
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('pass').errors?.minlength && formRegistroProfesional.get('pass').touched">
+                    La contraseña debe tener como minimo 6 caracteres
+                </div>
+                <input type="password" placeholder="password2" class="form-control my-3"
+                formControlName="pass2"
+                [ngClass]="{'is-invalid':formRegistroProfesional.get('pass2').touched && formRegistroProfesional.get('pass2').invalid && formRegistroProfesional.errors?.coinciden}">
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('pass2').errors?.required && formRegistroProfesional.get('pass2').touched">
+                    La contraseña es requerida
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('pass2').errors?.minlength && formRegistroProfesional.get('pass2').touched">
+                    La contraseña debe tener como minimo 6 caracteres
+                </div>
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.errors?.coinciden">
+                    Las contraseñas no coinciden
+                </div>
+                <input type="file" placeholder="foto1" class="form-control my-3"
+                formControlName="foto1"
+                [ngClass]="{'is-invalid':formRegistroProfesional.get('foto1').touched && formRegistroProfesional.get('foto1').invalid}">
+                <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('foto1').errors?.required && formRegistroProfesional.get('foto1').touched">
+                    La primera foto es requerido
+                </div>
+                <button type="button" class="btn btn-success"  type="submit" (click)="guardarPaciente(formRegistroProfesional)" [disabled]="!formRegistroProfesional.valid">Generar Usuario</button>
+            </form>
+        </div>
         
-        <form *ngIf="!tipoform" [formGroup]="formRegistroProfesional" (ngSubmit)="formRegistroProfesional.valid">
-            <input type="text" placeholder="nombre" class="form-control my-3"
-            formControlName="nombre" 
-            [ngClass]="{'is-invalid':formRegistroProfesional.get('nombre').touched && formRegistroProfesional.get('nombre').invalid}"/>
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('nombre').errors?.required && formRegistroProfesional.get('nombre').touched">
-                El nombre es requerido
-            </div>
-            <input type="text" placeholder="apellido" class="form-control my-3"
-            formControlName="apellido" 
-            [ngClass]="{'is-invalid':formRegistroProfesional.get('apellido').touched && formRegistroProfesional.get('apellido').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('apellido').errors?.required && formRegistroProfesional.get('apellido').touched">
-                El apellido es requerido
-            </div>
-            <input type="email" placeholder="email" class="form-control my-3"
-            formControlName="email" 
-            [ngClass]="{'is-invalid':formRegistroProfesional.get('email').touched && formRegistroProfesional.get('email').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('email').errors?.required && formRegistroProfesional.get('email').touched">
-                El email es requerido
-            </div>
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('email').errors?.email && formRegistroProfesional.get('email').touched">
-                El mail no es valido
-            </div>
-            <input type="number" placeholder="edad" class="form-control my-3"
-            formControlName="edad" 
-            [ngClass]="{'is-invalid':formRegistroProfesional.get('edad').touched && formRegistroProfesional.get('edad').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('edad').errors?.required && formRegistroProfesional.get('edad').touched">
-                El edad es requerido
-            </div>
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('edad').errors?.min || formRegistroProfesional.get('edad').errors?.max && formRegistroProfesional.get('edad').touched">
-                La edad debe ser mayor a 0 y menor a 99
-            </div>
-            <input type="number" placeholder="dni" class="form-control my-3"
-            formControlName="dni" 
-            [ngClass]="{'is-invalid':formRegistroProfesional.get('dni').touched && formRegistroProfesional.get('dni').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('dni').errors?.required && formRegistroProfesional.get('dni').touched">
-                El dni es requerido
-            </div>
-
-     
-            <mat-form-field class="example-chip-list" class="w-100">
-                <mat-label>Especialidades</mat-label>
-                <mat-chip-list #chipList aria-label="Especialidades" formControlName="especialidad">
-                  <mat-chip 
-                    *ngFor="let especial of formRegistroProfesional.get('especialidad').value"
-                    [selectable]="selectable"
-                    [removable]="removable"
-                    (removed)="remove(especial)">
-                    {{especial}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                  </mat-chip>
-                  <input 
-                    placeholder="Nueva especialidad..."
-                    #especialidadInput
-                    [formControl]="especialidadCtrl"
-                    [matAutocomplete]="auto"
-                    [matChipInputFor]="chipList"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    (matChipInputTokenEnd)="add($event)">
-                </mat-chip-list>
-                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                  <mat-option *ngFor="let especial of filteredEspecialidades | async" [value]="especial">
-                    {{especial}}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-          
-           
-
-
-
-
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('especialidad').errors?.required && formRegistroProfesional.get('especialidad').touched">
-                La especialidad es requerida
-            </div>
-            <input type="text" placeholder="obrasocial" class="form-control my-3"
-            formControlName="obrasocial" 
-            [ngClass]="{'is-invalid':formRegistroProfesional.get('obrasocial').touched && formRegistroProfesional.get('obrasocial').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('obrasocial').errors?.required && formRegistroProfesional.get('obrasocial').touched">
-                El obra social es requerido
-            </div>
-            <input type="password" placeholder="password" class="form-control my-3"
-            formControlName="pass" 
-            [ngClass]="{'is-invalid':formRegistroProfesional.get('pass').touched && formRegistroProfesional.get('pass').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('pass').errors?.required && formRegistroProfesional.get('pass').touched">
-                La contraseña es requerida
-            </div>
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('pass').errors?.minlength && formRegistroProfesional.get('pass').touched">
-                La contraseña debe tener como minimo 6 caracteres
-            </div>
-            <input type="password" placeholder="password2" class="form-control my-3"
-            formControlName="pass2"
-            [ngClass]="{'is-invalid':formRegistroProfesional.get('pass2').touched && formRegistroProfesional.get('pass2').invalid && formRegistroProfesional.errors?.coinciden}">
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('pass2').errors?.required && formRegistroProfesional.get('pass2').touched">
-                La contraseña es requerida
-            </div>
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('pass2').errors?.minlength && formRegistroProfesional.get('pass2').touched">
-                La contraseña debe tener como minimo 6 caracteres
-            </div>
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.errors?.coinciden">
-                Las contraseñas no coinciden
-            </div>
-            <input type="file" placeholder="foto1" class="form-control my-3"
-            formControlName="foto1"
-            [ngClass]="{'is-invalid':formRegistroProfesional.get('foto1').touched && formRegistroProfesional.get('foto1').invalid}">
-            <div class="invalid-feedback" *ngIf="formRegistroProfesional.get('foto1').errors?.required && formRegistroProfesional.get('foto1').touched">
-                La primera foto es requerido
-            </div>
-            <button type="button" class="btn btn-success"  type="submit" (click)="guardarPaciente(formRegistroProfesional)" [disabled]="!formRegistroProfesional.valid">Generar Usuario</button>
-        </form>
         <div class="alert alert-danger" *ngIf='mensajeError'>{{mensajeError}}</div>
     </div>
 </div>

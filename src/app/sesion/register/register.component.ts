@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   mensajeError=null
-  tipoform:boolean=true
+  tipoform:string='tipoform'
   formRegistroPaciente:FormGroup=new FormGroup({
     nombre:new FormControl('',[Validators.required]),
     apellido:new FormControl('',[Validators.required]),
@@ -49,6 +49,15 @@ export class RegisterComponent implements OnInit {
   },{
     validators:this.validatePass
   })
+  formRegistroAdmin:FormGroup=new FormGroup({
+    nombre:new FormControl('',[Validators.required]),
+    apellido:new FormControl('',[Validators.required]),
+    email:new FormControl('',[Validators.required,Validators.email]),
+    edad:new FormControl('',[Validators.required,Validators.min(1),Validators.max(99)]),
+    dni:new FormControl('',[Validators.required,Validators.minLength(6)]),
+    pass:new FormControl('',[Validators.required,Validators.minLength(6)]),
+    foto1:new FormControl('',[Validators.required])
+  })
 
   visible = true;
   selectable = true;
@@ -60,12 +69,18 @@ export class RegisterComponent implements OnInit {
   especialidades:string[]=['traumatologia','dermatologia','clinico','clinico2','clinico3','pediatria','oncologia']
   usuarioProfesional:Profesional=new Profesional
   usuarioPaciente:Paciente=new Paciente
-
+  centradoForm:string;
   @ViewChild('especialidadInput') especialidadInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(private authService:AuthService,
     private route:Router) {
+      if(route.url == '/usuarios'){
+        this.centradoForm="col-lg-12"
+      }else{
+        this.centradoForm="col-lg-4"
+      }
+      console.log(route.url)
     this.filteredEspecialidades = this.especialidadCtrl.valueChanges.pipe(
         startWith(null),
         map((especialidad: string | null) => especialidad ? this._filter(especialidad) : this.especialidades.slice()));
