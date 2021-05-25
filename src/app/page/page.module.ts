@@ -6,12 +6,14 @@ import { BienvenidoComponent } from './bienvenido/bienvenido.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DataTablesModule } from 'angular-datatables';
 import { SesionModule } from '../sesion/sesion.module';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 @NgModule({
   declarations: [
     BienvenidoComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    PerfilComponent
   ],
   imports: [
     CommonModule,

@@ -16,6 +16,7 @@ export class Paciente extends Usuario{
 }
 export class Profesional extends Usuario{
     especialidad:Array<string>
+    licencia:boolean
 }
 
 export class Admin extends Usuario{

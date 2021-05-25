@@ -1,5 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
+import { data } from 'jquery';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/servicios/auth.service';
 
 @Component({
@@ -19,20 +21,29 @@ export class UsuariosComponent implements OnInit {
     }
   }
   constructor(private authService:AuthService) {
-    authService.getAll().subscribe(user=>{
-      this.listaUsers=user
-      this.render=true
-    })
+
+    this.authService.getUserList().subscribe(res => {
+      this.listaUsers=res.map( e => {
+          let data=e.payload.doc.data()
+          data['id']=e.payload.doc.id
+          this.render=true
+          return data
+      })
+    }); 
+
+
   }
 
   ngOnInit(): void {
   }
 
-  statusProfesional(email,status){
-    let mod={
-      estado: !status
+  statusProfesional(id,estado){
+    let mod={estado:true}
+    if(estado){
+      mod.estado=false
     }
-    this.authService.cambiarInfo(email,mod)
+    this.authService.updateUser(id,mod)
   }
+
 
 }

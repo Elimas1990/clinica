@@ -1,212 +1,90 @@
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Component, ElementRef, ViewChild,OnInit} from '@angular/core';
-import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import { AuthService } from 'src/app/servicios/auth.service';
-import { Admin, Paciente, Profesional } from 'src/app/clases/usuario';
+
+import {Component,OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { EmitAndSemanticDiagnosticsBuilderProgram } from 'typescript';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { AuthService } from 'src/app/servicios/auth.service';
+import { StorageService } from 'src/app/servicios/storage.service';
 
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  animations:[
+    trigger(
+      'inOutAnimation', 
+      [ transition('void => *',  [
+            style({transform: 'translateY(100%)', opacity: 0 }),
+            animate('750ms ease-out', 
+              style({ transform: 'translateY(0%)', opacity: 1 }))
+        ]),
+        transition('* => void', [
+            style({ transform: 'translateY(0%)', opacity: 1 }),
+            animate('500ms ease-in', 
+              style({ transform: 'translateY(100%)', opacity: 0 }))
+        ])
+      ],
+      
+    )
+  ]
 })
 
 
 export class RegisterComponent implements OnInit {
 
   mensajeError=null
-  tipoform:string='tipoform'
-  formRegistroPaciente:FormGroup=new FormGroup({
-    nombre:new FormControl('',[Validators.required]),
-    apellido:new FormControl('',[Validators.required]),
-    email:new FormControl('',[Validators.required,Validators.email]),
-    edad:new FormControl('',[Validators.required,Validators.min(1),Validators.max(99)]),
-    dni:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    obrasocial:new FormControl('',[Validators.required]),
-    pass:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    pass2:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    foto1:new FormControl('',[Validators.required]),
-    foto2:new FormControl('',[Validators.required])
-  },{
-    validators:this.validatePass
-  })
-  formRegistroProfesional:FormGroup=new FormGroup({
-    nombre:new FormControl('',[Validators.required]),
-    apellido:new FormControl('',[Validators.required]),
-    email:new FormControl('',[Validators.required,Validators.email]),
-    edad:new FormControl('',[Validators.required,Validators.min(1),Validators.max(99)]),
-    dni:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    obrasocial:new FormControl('',[Validators.required]),
-    pass:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    pass2:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    especialidad:new FormControl([]),
-    foto1:new FormControl('',[Validators.required])
-  },{
-    validators:this.validatePass
-  })
-  formRegistroAdmin:FormGroup=new FormGroup({
-    nombre:new FormControl('',[Validators.required]),
-    apellido:new FormControl('',[Validators.required]),
-    email:new FormControl('',[Validators.required,Validators.email]),
-    edad:new FormControl('',[Validators.required,Validators.min(1),Validators.max(99)]),
-    dni:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    pass:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    pass2:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    foto1:new FormControl('',[Validators.required])
-  },{
-    validators:this.validatePass
-  })
-
-  visible = true;
-  selectable = true;
-  removable = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  especialidadCtrl = new FormControl();
-  filteredEspecialidades: Observable<string[]>;
-  especialidadElegida: string[] = [];
-  especialidades:string[]=['traumatologia','dermatologia','clinico','clinico2','clinico3','pediatria','oncologia']
-  usuarioProfesional:Profesional=new Profesional
-  usuarioPaciente:Paciente=new Paciente
-  usuarioAdmin: Admin=new Admin
+  tipoform:string=''
+  mostrarFormularios=false
   centradoForm:string;
-  @ViewChild('especialidadInput') especialidadInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor(private authService:AuthService,
-    private route:Router) {
+  constructor(private route:Router,
+    private authService:AuthService,
+    private storageService:StorageService) {
       if(route.url == '/usuarios'){
         this.centradoForm="col-lg-12"
       }else{
         this.centradoForm="col-lg-4"
       }
-      console.log(route.url)
-    this.filteredEspecialidades = this.especialidadCtrl.valueChanges.pipe(
-        startWith(null),
-        map((especialidad: string | null) => especialidad ? this._filter(especialidad) : this.especialidades.slice()));
   }
 
-  add(event: MatChipInputEvent): void {
-    const valor = (event.value || '').trim();
-
-    if (valor) {
-      this.formRegistroProfesional.get('especialidad').value.push(valor)
-    }
-
-    //event.chipInput!.clear();
-
-    this.especialidadCtrl.setValue(null);
-  }
-
-  remove(especialidad: string): void {
-    const index = this.formRegistroProfesional.get('especialidad').value.indexOf(especialidad);
-    if (index >= 0) {
-      this.formRegistroProfesional.get('especialidad').value.splice(index, 1);
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.formRegistroProfesional.get('especialidad').value.push(event.option.viewValue);
-    this.especialidadInput.nativeElement.value = '';
-    this.especialidadCtrl.setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.especialidades.filter(especial => especial.toLowerCase().indexOf(filterValue) === 0);
-  }
   ngOnInit(): void {
 
   }
 
-  async guardarPaciente(formulario){
-    try{
-      let aRegistrar={pass:''}
-      switch(this.tipoform){
-        case 'paciente':
-          this.usuarioPaciente={
-            nombre:formulario.getRawValue().nombre,
-            apellido:formulario.getRawValue().apellido,
-            email:formulario.getRawValue().email,
-            pass:formulario.getRawValue().pass,
-            edad:formulario.getRawValue().edad,
-            dni:formulario.getRawValue().dni,
-            obrasocial:formulario.getRawValue().obrasocial,
-            img:formulario.getRawValue().foto1,
-            img2:formulario.getRawValue().foto2,
-            estado:true,
-            tipouser:'Paciente'
-          }
-          aRegistrar=this.usuarioPaciente
-          break;
-        case 'profesional':
-          this.usuarioProfesional={
-            nombre:formulario.getRawValue().nombre,
-            apellido:formulario.getRawValue().apellido,
-            email:formulario.getRawValue().email,
-            pass:formulario.getRawValue().pass,
-            edad:formulario.getRawValue().edad,
-            dni:formulario.getRawValue().dni,
-            especialidad:formulario.getRawValue().especialidad,
-            img:formulario.getRawValue().foto1,
-            estado:false,
-            tipouser:'Profesional'
-          }
-          aRegistrar=this.usuarioProfesional
-          break;
-        case 'administracion':
-          this.usuarioAdmin={
-            nombre:formulario.getRawValue().nombre,
-            apellido:formulario.getRawValue().apellido,
-            email:formulario.getRawValue().email,
-            pass:formulario.getRawValue().pass,
-            edad:formulario.getRawValue().edad,
-            dni:formulario.getRawValue().dni,
-            img:formulario.getRawValue().foto1,
-            estado:true,
-            tipouser:'Administrativo'
-          }
-          aRegistrar=this.usuarioProfesional
-          break;
-      }
- 
-      let respuesta=this.authService.register(aRegistrar)
-      respuesta.then(x => {
-        if(x.message){
-          this.mensajeError=x.message
-        }else{
-          this.mensajeError=null
-          delete aRegistrar.pass;
-          this.authService.create(aRegistrar)
-          this.route.navigate(['sesion/verifica-email'])
-        }
-      })
-    }
-    catch(error){
-      console.log(error)
-    }
-    
-  }
-
-  validatePass(control: AbstractControl):null |object {
-    if(control.value.pass2 != control.value.pass){
-      return {coinciden: true};
-    }
-  }
-
-  arrayVacio(control: AbstractControl):null |object {
+  /*arrayVacio(control: AbstractControl):null |object {
     
     if(control.value.length == 0){
       return {arrayVacio: false,invalid: true};
     }else{
       return {arrayVacio: true,invalid: false};
     }
+  }*/
+  dataUsuario(user){
+    console.log(user)
+    this.storageService.tareaCloudStorage(user.img,user.email)
+    user.img=`image/${user.email}/${user.img.name}`
+    if(user.img2){
+      this.storageService.tareaCloudStorage(user.img2,user.email)
+      user.img2=`image/${user.email}/${user.img2.name}`
+    }
+    let respuesta=this.authService.register(user)
+      respuesta.then(x => {
+        if(x.message){
+          this.mensajeError=x.message
+        }else{
+          this.mensajeError=null
+          delete user.pass;
+          this.authService.create(user)
+          this.route.navigate(['sesion/verifica-email'])
+        }
+      })
+  }
+  volverRegistros(volver){
+    this.mostrarFormularios=volver
+  }
+  mostrarForm(tipo){
+    this.tipoform=tipo
+    this.mostrarFormularios=true
   }
 
 

@@ -27,8 +27,8 @@
                             <td>{{user.especialidad}}</td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-danger" *ngIf="!user.estado && user.tipouser =='Profesional'" (click)="statusProfesional(user.email,user.estado)">Inactivo</button> 
-                                    <button class="btn btn-success" *ngIf="user.estado && user.tipouser =='Profesional'" (click)="statusProfesional(user.email,user.estado)">Activo</button> 
+                                    <button class="btn btn-danger" *ngIf="!user.estado && user.tipouser =='Profesional'" (click)="statusProfesional(user.id,user.estado)"><i class="fa fa-user-slash"></i></button> 
+                                    <button class="btn btn-success" *ngIf="user.estado && user.tipouser =='Profesional'" (click)="statusProfesional(user.id,user.estado)"><i class="fa fa-user"></i></button> 
                                 </div>
                                 
                             </td>

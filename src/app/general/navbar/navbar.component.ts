@@ -11,18 +11,18 @@ import { AuthService } from 'src/app/servicios/auth.service';
 export class NavbarComponent implements OnInit {
 
   public user: Observable<any>=this.authService.auth.user;
-  public user2=localStorage.getItem('user')
+  public user2:any;
  
   constructor(private authService:AuthService,
     private route:Router) {
-      
-      this.user.subscribe(x => {
-        //console.log(x.email)
-        //this.user2=authService.userInfo(x.email)
-        //this.user2=JSON.stringify(x[0])
-        //this.user2=authService.userInfo(x[0]?.email)
-        //console.log(this.user2)
-      })   
+      this.authService.auth.user.subscribe(x=> {
+        this.authService.db.collection('/usuarios', ref => ref.where('email','==', x.email ))
+        .valueChanges()
+        .subscribe((response) => {
+          console.log(response[0])
+          this.user2 = response;
+      });
+    })
   }
 
   ngOnInit(): void {

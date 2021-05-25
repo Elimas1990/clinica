@@ -10,13 +10,15 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { VerificaemailComponent } from './verificaemail/verificaemail.component';
+import { FormularioComponent } from './register/formulario/formulario.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    VerificaemailComponent
+    VerificaemailComponent,
+    FormularioComponent
   ],
   imports: [
     CommonModule,
