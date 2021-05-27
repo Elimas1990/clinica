@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   user: Observable<any>=this.authService.auth.user;
   userlogin=false
   userAdmin=false
+  userPaciente=false
   user2:any;
   
  
@@ -29,6 +30,9 @@ export class NavbarComponent implements OnInit {
             if(this.user2.tipouser == "Administrativo"){
               this.userAdmin=true}
               else{
+                if(this.user2.tipouser == "Paciente"){
+                  this.userPaciente=true
+                }
                 this.userAdmin=false
               }
           });

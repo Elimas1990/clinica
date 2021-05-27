@@ -10,6 +10,8 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { HorariosComponent } from './perfil/horarios/horarios.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SolicitarturnoComponent } from './solicitarturno/solicitarturno.component';
+import { FilterPipe } from '../pipes/filter.pipe';
+
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import { SolicitarturnoComponent } from './solicitarturno/solicitarturno.compone
     UsuariosComponent,
     PerfilComponent,
     HorariosComponent,
-    SolicitarturnoComponent
+    SolicitarturnoComponent,
+    FilterPipe
   ],
   imports: [
     CommonModule,

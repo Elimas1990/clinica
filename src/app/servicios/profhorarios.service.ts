@@ -22,7 +22,19 @@ export class ProfhorariosService {
   getAll(){
     return this.horarios;
   }
-  va:any
+
+
+  horarioProf(email,especialidad):Observable<any>{
+
+    let subject=new Subject<any>()
+    const info= this.db.collection(this.dbpath, ref => ref.where('email','==', email ).where('especialidad','==', especialidad))
+    .get()
+    .subscribe(x =>{
+      subject.next(x)
+    })
+    return subject.asObservable();
+  }
+
   devolverHorario(email,especialidad):Observable<any>{
 
     let subject=new Subject<any>()

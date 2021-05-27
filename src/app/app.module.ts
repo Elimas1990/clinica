@@ -33,6 +33,7 @@ import { DataTablesModule } from 'angular-datatables';
     BrowserAnimationsModule,
     DataTablesModule
   ],
+  exports:[],
   providers: [],
   bootstrap: [AppComponent]
 })

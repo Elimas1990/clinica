@@ -13,24 +13,21 @@
           <li class="nav-item" *ngIf="userAdmin && user | async as user">
             <a class="nav-link" aria-current="page" routerLink="/usuarios">Usuario</a>
           </li>
-          <li class="nav-item" *ngIf="userlogin && user | async as user">
-            <a class="nav-link" aria-current="page" routerLink="/perfil">Perfil</a>
+          <li class="nav-item" *ngIf="(userAdmin || userPaciente) && user | async as user">
+            <a class="nav-link" aria-current="page" routerLink="/solicitarturno">Solicitar Turno</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-     
-        
+          <li class="nav-item" *ngIf="userlogin && user | async as user">
+            <a class="nav-link" aria-current="page" routerLink="/perfil">Perfil</a>
+          </li>
           <li class="nav-item">
                 <a class="nav-link" routerLink="/sesion/register">Register</a>
           </li>
-          
-          
           <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex" *ngIf="user | async as user;else login">
             <li class="nav-item" *ngIf="user">
                 <a class="nav-link" (click)="desloguear()">Logout</a>
             </li>
-            
-            
             <li class="nav-item">
                 <a class="nav-link">{{user?.email}}</a>
             </li>

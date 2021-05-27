@@ -1,1 +1,41 @@
-<p>solicitarturno works!</p>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12">
+            <h1>Solicitar Turno</h1>
+            <div class="input-group">
+                <input type="text" placeholder="Especialidad" class="form-control" [(ngModel)]="searchText">
+                <!--<input type="text" placeholder="Profesional" class="form-control" [(ngModel)]="searchProfesional">  -->
+                <button class="btn btn-danger">Buscar</button>
+            </div>
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Especialidad</th>
+                        <th>Lunes</th>
+                        <th>Martes</th>
+                        <th>Miercoles</th>
+                        <th>Jueves</th>
+                        <th>Viernes</th>
+                        <th>Sabado</th>
+                    </tr>
+                    
+                </thead>
+                <tbody>
+                    <tr *ngFor="let h of listaHorarios | filter : searchText">
+                        <td>{{h.nombre}} {{h.apellido}}</td>
+                        <td>{{h.especialidad}}</td>
+                        <td>{{h.lunesDesde}} {{h.lunesHasta}}</td>
+                        <td>{{h.martesDesde}} {{h.martesHasta}}</td>
+                        <td>{{h.miercolesDesde}} {{h.miercolesHasta}}</td>
+                        <td>{{h.juevesDesde}} {{h.juevesHasta}}</td>
+                        <td>{{h.viernesDesde}} {{h.viernesHasta}}</td>
+                        <td>{{h.sabadoDesde}} {{h.sabadoHasta}}</td>
+                    </tr>
+                </tbody>
+            </table>
+           
+        </div>
+    </div>
+</div>
+

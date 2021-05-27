@@ -84,13 +84,13 @@ export class HorariosComponent implements OnInit {
   guardarUsuario(){
 
     let obj=this.formHorarios.getRawValue()
-    
+    obj.nombre=this.data.nombre
+    obj.apellido=this.data.apellido
     obj.email=this.data.email
     this.horarioService.devolverHorario(obj.email,obj.especialidad)
     .subscribe(x =>{
-      if(x.size < 0){
+      if(x.size > 0){
         x.docs.forEach(element => {
-          console.log(element.id)
           this.horarioService.eliminarSetHorario(element.id)
         })
       }
