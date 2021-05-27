@@ -1,0 +1,8 @@
+.input-group-text{
+    min-width: 100px;
+}
+
+.btn-circle{
+    border-radius: 50%;
+    width: 70px;
+}

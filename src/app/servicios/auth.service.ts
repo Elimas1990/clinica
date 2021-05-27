@@ -14,6 +14,7 @@ export class AuthService {
   private dbpath='/usuarios';
   dataUsuarios:AngularFirestoreCollection<any>;
   users: Observable<any>
+  id:any;
 
   constructor(public db: AngularFirestore,
     public auth: AngularFireAuth) { 
@@ -62,15 +63,18 @@ export class AuthService {
 
   async userInfo(email) {
     this.auth.user.subscribe(x=> {
-      let info=this.db.collection(this.dbpath, ref => ref.where('email','==', x.email )).valueChanges()
-      info.subscribe(x =>localStorage.setItem('user', JSON.stringify(x[0])))
-      return info
+      if(x){
+        let info=this.db.collection(this.dbpath, ref => ref.where('email','==', x.email )).valueChanges()
+        info.subscribe(x =>localStorage.setItem('user', JSON.stringify(x[0])))
+        return info
+      }
+      
     })
     
   }
 
   
-  id:any;
+  
   async cambiarInfo(email,mod) {
     
     const docRef=this.db.collection(this.dbpath, ref => ref.where('email','==', email ))

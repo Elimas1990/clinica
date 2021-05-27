@@ -10,19 +10,32 @@ import { AuthService } from 'src/app/servicios/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  public user: Observable<any>=this.authService.auth.user;
-  public user2:any;
+  user: Observable<any>=this.authService.auth.user;
+  userlogin=false
+  userAdmin=false
+  user2:any;
+  
  
   constructor(private authService:AuthService,
     private route:Router) {
+
       this.authService.auth.user.subscribe(x=> {
-        this.authService.db.collection('/usuarios', ref => ref.where('email','==', x.email ))
-        .valueChanges()
-        .subscribe((response) => {
-          console.log(response[0])
-          this.user2 = response;
-      });
-    })
+        if(x){
+          this.authService.db.collection('/usuarios', ref => ref.where('email','==', x?.email ))
+          .valueChanges()
+          .subscribe((response) => {
+            this.user2 = response[0]
+            this.userlogin=true
+            if(this.user2.tipouser == "Administrativo"){
+              this.userAdmin=true}
+              else{
+                this.userAdmin=false
+              }
+          });
+        }
+        
+      })
+      
   }
 
   ngOnInit(): void {

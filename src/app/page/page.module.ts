@@ -7,19 +7,26 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { DataTablesModule } from 'angular-datatables';
 import { SesionModule } from '../sesion/sesion.module';
 import { PerfilComponent } from './perfil/perfil.component';
+import { HorariosComponent } from './perfil/horarios/horarios.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SolicitarturnoComponent } from './solicitarturno/solicitarturno.component';
 
 
 @NgModule({
   declarations: [
     BienvenidoComponent,
     UsuariosComponent,
-    PerfilComponent
+    PerfilComponent,
+    HorariosComponent,
+    SolicitarturnoComponent
   ],
   imports: [
     CommonModule,
     PageRoutingModule,
     DataTablesModule,
-    SesionModule
+    SesionModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class PageModule { }

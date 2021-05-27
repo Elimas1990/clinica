@@ -1,0 +1,15 @@
+img {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    border: 2px solid black;
+}
+.bg-indigo{
+    background-color: var(--bs-purple);
+}
+.bg-blue{
+    background-color: var(--bs-blue);
+}
+.perfil-info{
+    font-weight: bold;
+}

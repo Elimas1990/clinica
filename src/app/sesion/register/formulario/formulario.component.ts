@@ -4,13 +4,11 @@ import { Component, ElementRef, Input, OnInit, Output, ViewChild, EventEmitter }
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Admin, Paciente, Profesional } from 'src/app/clases/usuario';
-import { AuthService } from 'src/app/servicios/auth.service';
-import { StorageService } from 'src/app/servicios/storage.service';
+import { EspecialidadesService } from 'src/app/servicios/especialidades.service';
 
 @Component({
   selector: 'app-formulario',
@@ -81,7 +79,7 @@ export class FormularioComponent implements OnInit {
   especialidadCtrl = new FormControl();
   filteredEspecialidades: Observable<string[]>;
   especialidadElegida: string[] = [];
-  especialidades:string[]=['traumatologia','dermatologia','clinico','clinico2','clinico3','pediatria','oncologia']
+  especialidades:string[]=[]
   usuarioProfesional:Profesional=new Profesional
   usuarioPaciente:Paciente=new Paciente
   usuarioAdmin: Admin=new Admin
@@ -90,10 +88,18 @@ export class FormularioComponent implements OnInit {
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   
   constructor(private fb:FormBuilder,
-    private storage:StorageService) { 
-    this.filteredEspecialidades = this.especialidadCtrl.valueChanges.pipe(
-      startWith(null),
-      map((especialidad: string | null) => especialidad ? this._filter(especialidad) : this.especialidades.slice()));
+    private espService:EspecialidadesService) { 
+      espService.getAll().subscribe(x => {
+        x.forEach(element => {
+          console.log(element.especialidad)
+          this.especialidades.push(element.especialidad)
+          this.filteredEspecialidades = this.especialidadCtrl.valueChanges.pipe(
+            startWith(null),
+            map((especialidad: string | null) => especialidad ? this._filter(especialidad) : this.especialidades.slice()));
+        });
+        
+      })
+    
   }
 
   ngOnInit(): void {
@@ -179,13 +185,11 @@ export class FormularioComponent implements OnInit {
       img:this.fileToUpload,
       estado:true,
     }
-    //this.storage.tareaCloudStorage(this.fileToUpload)
     try{
       let aRegistrar={pass:''}
       switch(this.formType){
         case 'paciente':
           objBase['obrasocial']=formulario.getRawValue().obrasocial
-          //this.storage.tareaCloudStorage(this.fileToUpload2)
           
           objBase['img2']=this.fileToUpload2
 
@@ -229,7 +233,6 @@ export class FormularioComponent implements OnInit {
   }
 
   probar(){
-    //this.storage.tareaCloudStorage(this.fileToUpload)
     
   }
 }

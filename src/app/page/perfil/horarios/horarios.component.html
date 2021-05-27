@@ -1,0 +1,55 @@
+<div class="row justify-content-md-center">
+    <div class="col-lg-9" >
+        <form [formGroup]="formHorarios" (ngSubmit)="formHorarios.valid" >
+            <select class="form-select"  formControlName="especialidad">
+                <option *ngFor="let esp of data.especialidad " [value]="esp" selected>
+                    {{esp}}
+                </option>
+            </select>
+            <div class="text-center m-3 p-3">
+                <button class="btn border btn-circle btn-lg mx-1" (click)="selecDia($event,'L')">L</button>
+                <button class="btn border btn-circle btn-lg mx-1" (click)="selecDia($event,'M')">M</button>
+                <button class="btn border btn-circle btn-lg mx-1" (click)="selecDia($event,'Mi')">Mi</button>
+                <button class="btn border btn-circle btn-lg mx-1" (click)="selecDia($event,'J')">J</button>
+                <button class="btn border btn-circle btn-lg mx-1" (click)="selecDia($event,'V')">V</button>
+                <button class="btn border btn-circle btn-lg mx-1" (click)="selecDia($event,'S')">S</button>
+            </div>
+        
+            <div *ngIf="controlLunes || controlMartes || controlMiercoles || controlJueves || controlViernes || controlSabado">
+                <div class="input-group my-3" *ngIf="controlLunes">
+                    <span class="input-group-text">Lunes</span>
+                    <input type="text" class="form-control" placeholder="Desde" formControlName="lunesDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
+                    <input type="text" class="form-control" placeholder="Hasta" formControlName="lunesHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+                </div>
+                <div class="input-group mb-3" *ngIf="controlMartes">
+                    <span class="input-group-text">Martes</span>
+                    <input type="text" class="form-control" placeholder="Desde" formControlName="martesDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
+                    <input type="text" class="form-control" placeholder="Hasta" formControlName="martesHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+                </div>
+                <div class="input-group mb-3" *ngIf="controlMiercoles">
+                    <span class="input-group-text">Miercoles</span>
+                    <input type="text" class="form-control" placeholder="Desde" formControlName="miercolesDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
+                    <input type="text" class="form-control" placeholder="Hasta" formControlName="miercolesHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+                </div>
+                <div class="input-group mb-3" *ngIf="controlJueves">
+                    <span class="input-group-text">Jueves</span>
+                    <input type="text" class="form-control" placeholder="Desde" formControlName="juevesDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
+                    <input type="text" class="form-control" placeholder="Hasta" formControlName="juevesHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+                </div>
+                <div class="input-group mb-3" *ngIf="controlViernes">
+                    <span class="input-group-text">Viernes</span>
+                    <input type="text" class="form-control" placeholder="Desde" formControlName="viernesDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
+                    <input type="text" class="form-control" placeholder="Hasta" formControlName="viernesHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+                </div>
+                <div class="input-group mb-3" *ngIf="controlSabado">
+                    <span class="input-group-text">Viernes</span>
+                    <input type="text" class="form-control" placeholder="Desde" formControlName="sabadoDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
+                    <input type="text" class="form-control" placeholder="Hasta" formControlName="sabadoHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+                </div>
+                <button class="btn btn-primary w-100" type="submit" (click)="guardarUsuario(formHorarios)" [disabled]="!formHorarios.valid">Guardar horarios</button>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
