@@ -11,6 +11,7 @@ import { HorariosComponent } from './perfil/horarios/horarios.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SolicitarturnoComponent } from './solicitarturno/solicitarturno.component';
 import { FilterPipe } from '../pipes/filter.pipe';
+import { VerturnosComponent } from './solicitarturno/verturnos/verturnos.component';
 
 
 
@@ -21,7 +22,8 @@ import { FilterPipe } from '../pipes/filter.pipe';
     PerfilComponent,
     HorariosComponent,
     SolicitarturnoComponent,
-    FilterPipe
+    FilterPipe,
+    VerturnosComponent
   ],
   imports: [
     CommonModule,

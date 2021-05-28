@@ -30,9 +30,5 @@ export class StorageService {
     return this.storage.ref(nombreArchivo);
   }
 
-  storageRef
-  public downImg(){
-    let ref = this.storage.ref('image/DSC_0002.JPG');
-    //ref.getDownloadURL().subscribe(url => console.log(url) );
-  }
+ 
 }

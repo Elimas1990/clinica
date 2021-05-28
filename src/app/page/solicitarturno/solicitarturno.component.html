@@ -7,7 +7,7 @@
                 <!--<input type="text" placeholder="Profesional" class="form-control" [(ngModel)]="searchProfesional">  -->
                 <button class="btn btn-danger">Buscar</button>
             </div>
-            <table class="table table-primary">
+            <table class="table table-primary table-hover">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -18,11 +18,12 @@
                         <th>Jueves</th>
                         <th>Viernes</th>
                         <th>Sabado</th>
+                        <th></th>
                     </tr>
                     
                 </thead>
                 <tbody>
-                    <tr *ngFor="let h of listaHorarios | filter : searchText">
+                    <tr *ngFor="let h of listaHorarios | filter : searchText" >
                         <td>{{h.nombre}} {{h.apellido}}</td>
                         <td>{{h.especialidad}}</td>
                         <td>{{h.lunesDesde}} {{h.lunesHasta}}</td>
@@ -31,11 +32,18 @@
                         <td>{{h.juevesDesde}} {{h.juevesHasta}}</td>
                         <td>{{h.viernesDesde}} {{h.viernesHasta}}</td>
                         <td>{{h.sabadoDesde}} {{h.sabadoHasta}}</td>
+                        <td><button class="btn btn-primary" (click)="profSelect(h)"> Ver turnos</button></td>
+                        <!--<td><button class="btn btn-primary m-1" *ngFor="let d of h.lunes">{{d}}</button></td>
+                        <td><button class="btn btn-primary m-1" *ngFor="let d of h.martes">{{d}}</button></td>
+                        <td><button class="btn btn-primary m-1" *ngFor="let d of h.miercoles">{{d}}</button></td>
+                        <td><button class="btn btn-primary m-1" *ngFor="let d of h.jueves">{{d}}</button></td>
+                        <td><button class="btn btn-primary m-1" *ngFor="let d of h.viernes">{{d}}</button></td>
+                        <td><button class="btn btn-primary m-1" *ngFor="let d of h.sabado">{{d}}</button></td>-->
                     </tr>
                 </tbody>
             </table>
-           
+            
         </div>
     </div>
 </div>
-
+<app-verturnos [turnosDe]="turnosDe"></app-verturnos>
