@@ -1,0 +1,17 @@
+<div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 fst-italic">Servicios</h1>
+      <p class="lead my-3">Seleccione la especialidad que busca</p>
+      <button class="btn btn-outline-light float-end" (click)="volver()">Volver al Inicio</button>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-lg-4 text-center mb-3" *ngFor="let esp of listaEspecialidades">
+        <!--<div class="rounded-circle border p-5 border-5 big-btn" >
+            <img [src]="esp.icon" class="img-icon ">
+        </div>-->
+        <img [src]="esp.icon"  class="bd-placeholder-img  border border-5  rounded-circle img-icon big-btn" (click)="selectEspecialidad(esp)">
+        <h2>{{esp.especialidad}}</h2>
+       
+    </div>
+</div>

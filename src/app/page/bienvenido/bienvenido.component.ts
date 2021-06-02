@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BienvenidoComponent implements OnInit {
 
+  misturnosimg="./../../../assets/departments-3.jpg";
+  sacarturnos="./../../../assets/departments-5.jpg"; 
   constructor() { }
 
   ngOnInit(): void {

@@ -12,6 +12,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SolicitarturnoComponent } from './solicitarturno/solicitarturno.component';
 import { FilterPipe } from '../pipes/filter.pipe';
 import { VerturnosComponent } from './solicitarturno/verturnos/verturnos.component';
+import { GeneralModule } from '../general/general.module';
+import { EspecialidadComponent } from './solicitarturno/especialidad/especialidad.component';
+import { ProfesionalComponent } from './solicitarturno/profesional/profesional.component';
+import { TurnosComponent } from './solicitarturno/turnos/turnos.component';
+import { MiturnoComponent } from './miturno/miturno.component';
 
 
 
@@ -23,7 +28,11 @@ import { VerturnosComponent } from './solicitarturno/verturnos/verturnos.compone
     HorariosComponent,
     SolicitarturnoComponent,
     FilterPipe,
-    VerturnosComponent
+    VerturnosComponent,
+    EspecialidadComponent,
+    ProfesionalComponent,
+    TurnosComponent,
+    MiturnoComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +40,8 @@ import { VerturnosComponent } from './solicitarturno/verturnos/verturnos.compone
     DataTablesModule,
     SesionModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    GeneralModule
   ]
 })
 export class PageModule { }

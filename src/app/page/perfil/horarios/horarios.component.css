@@ -6,3 +6,7 @@
     border-radius: 50%;
     width: 70px;
 }
+
+input[type=radio]{
+    transform:scale(1.5);
+}

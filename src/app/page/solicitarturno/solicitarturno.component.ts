@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfhorariosService } from 'src/app/servicios/profhorarios.service';
 import * as moment from 'moment';
+import { EspecialidadesService } from 'src/app/servicios/especialidades.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-solicitarturno',
@@ -10,14 +12,31 @@ import * as moment from 'moment';
 export class SolicitarturnoComponent implements OnInit {
 
   
-  searchText:string
-  searchProfesional:string
-  listaHorarios=[]
-  turnosDe:any
+  //searchText:string
+  //searchProfesional:string
+  //listaHorarios=[]
+  //turnosDe:any
+  listaEspecialidades=[]
+  //listaProfesionales=[]
 
+  espSelect:any
+  profSelect:any
+
+  mostrarEspecialidades=true;
+  mostrarProfesionales=false;
+  mostrarTurnos=false;
+
+
+  //mostrarHorarios=false;
   
-  constructor(private horarioService:ProfhorariosService) { 
-    horarioService.getAll()
+  constructor(//private horarioService:ProfhorariosService,
+    //private route:Router,
+    private espService:EspecialidadesService) { 
+      espService.getAll()
+      .subscribe(x=> {
+        this.listaEspecialidades=x
+      })
+    /*horarioService.getAll()
     .subscribe(x => {
       this.listaHorarios=x
       x.forEach(element => {
@@ -30,10 +49,37 @@ export class SolicitarturnoComponent implements OnInit {
         element.sabado= this.generarTurnos(element.sabadoDesde,element.sabadoHasta)
         
       });
-    })
+    })*/
     
   }
-  profSelect(h){
+  espSelecionado(esp){
+    this.espSelect=esp
+    this.mostrarEspecialidades=false;
+    this.mostrarProfesionales=true;
+    /*this.horarioService.profPorEspecialidad(esp)
+    .subscribe(prof=>{
+      this.listaProfesionales=prof
+      
+    })*/
+  }
+  vuelta(sec){
+    if(sec == 'especialidad'){
+      this.mostrarEspecialidades=true;
+      this.mostrarProfesionales=false;
+    }
+    if(sec == 'turnos'){
+      this.mostrarTurnos=false;
+      this.mostrarProfesionales=true;
+    }
+  }
+  profecionalSelect(prof){
+    this.mostrarProfesionales=false;
+    this.mostrarTurnos=true;
+    this.profSelect=prof
+  }
+
+  
+  /*profSelect(h){
     this.turnosDe=h
   }
 
@@ -53,7 +99,7 @@ export class SolicitarturnoComponent implements OnInit {
       return turnos
     }
     
-  }
+  }*/
   ngOnInit(): void {
   }
 

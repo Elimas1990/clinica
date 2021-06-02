@@ -1,11 +1,8 @@
-.bg {
-    background-image: url("./../../../assets/about.jpg");
+.img-icon{
     
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    /*filter: blur(5px);
-    -webkit-filter: blur(5px);*/
+   
+    height: 140px;
+    width: 140px;
 }
 
 .big-btn:hover{
@@ -14,6 +11,8 @@
     -moz-transition: all .5s;
     transition: all .5s;
     z-index: 1;
+    cursor: pointer;
+    border-color: purple!important;
 }
 
 .big-btn{

@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { VerificaemailComponent } from './verificaemail/verificaemail.component';
 import { FormularioComponent } from './register/formulario/formulario.component';
+import { GeneralModule } from '../general/general.module';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { FormularioComponent } from './register/formulario/formulario.component'
     MatAutocompleteModule,
     MatChipsModule,
     MatIconModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    GeneralModule
   ],
   exports:[
     RegisterComponent,

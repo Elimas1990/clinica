@@ -30,5 +30,7 @@ export class StorageService {
     return this.storage.ref(nombreArchivo);
   }
 
+
+
  
 }

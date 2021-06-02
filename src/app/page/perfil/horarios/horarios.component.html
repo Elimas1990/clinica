@@ -1,12 +1,21 @@
 <div class="row justify-content-md-center">
-    <div class="col-lg-9" >
-        <form [formGroup]="formHorarios" (ngSubmit)="formHorarios.valid" >
-            <select class="form-select"  formControlName="especialidad">
-                <option *ngFor="let esp of data.especialidad " [value]="esp" selected>
-                    {{esp}}
-                </option>
-            </select>
-            <div class="text-center m-3 p-3">
+    <div class="col-lg-12 px-5" >
+        
+       
+        <form [formGroup]="formHorarios" (ngSubmit)="formHorarios.valid"  class="text-center">
+            <button class="btn border  btn-lg mx-1 btn-esp mb-3" *ngFor="let esp of data.especialidad" (click)="selecEsp($event,esp)">{{esp}}</button>
+            <div class="mb-3" *ngIf="this.formHorarios.getRawValue().especialidad">
+                <h5>Tiempo por paciente: </h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio"  id="bloq30" value="30" formControlName="tiempobloque">
+                    <label class="form-check-label h5" >30 min</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio"  id="bloq60" value="60" formControlName="tiempobloque" >
+                    <label class="form-check-label h5" >60 min</label>
+                </div>
+            </div>
+            <div class="text-center mb-3" *ngIf="this.formHorarios.getRawValue().tiempobloque">
                 <button class="btn border btn-circle btn-lg mx-1" (click)="selecDia($event,'L')">L</button>
                 <button class="btn border btn-circle btn-lg mx-1" (click)="selecDia($event,'M')">M</button>
                 <button class="btn border btn-circle btn-lg mx-1" (click)="selecDia($event,'Mi')">Mi</button>
@@ -14,39 +23,110 @@
                 <button class="btn border btn-circle btn-lg mx-1" (click)="selecDia($event,'V')">V</button>
                 <button class="btn border btn-circle btn-lg mx-1" (click)="selecDia($event,'S')">S</button>
             </div>
-        
+            
+            
             <div *ngIf="controlLunes || controlMartes || controlMiercoles || controlJueves || controlViernes || controlSabado">
-                <div class="input-group my-3" *ngIf="controlLunes">
-                    <span class="input-group-text">Lunes</span>
-                    <input type="text" class="form-control" placeholder="Desde" formControlName="lunesDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
-                    <input type="text" class="form-control" placeholder="Hasta" formControlName="lunesHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+
+                <div class="row" *ngIf="controlLunes" formGroupName="lunes">
+                    <div class="col-6">
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().lunes.desde">Lunes desde: {{mostrarHora(this.formHorarios.getRawValue().lunes.desde) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().lunes.desde">Lunes desde que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" min="8" [max]="setMax(this.formHorarios.getRawValue().lunes.hasta,18)" formControlName="desde" >
+                    </div>
+                    <div class="col-6">
+                        
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().lunes.hasta">Lunes hasta: {{mostrarHora(this.formHorarios.getRawValue().lunes.hasta) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().lunes.hasta">Lunes hasta que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" [min]="setMin(this.formHorarios.getRawValue().lunes.desde)" max="19" formControlName="hasta" >
+                    </div>
                 </div>
-                <div class="input-group mb-3" *ngIf="controlMartes">
-                    <span class="input-group-text">Martes</span>
-                    <input type="text" class="form-control" placeholder="Desde" formControlName="martesDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
-                    <input type="text" class="form-control" placeholder="Hasta" formControlName="martesHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+                <div class="row" *ngIf="controlMartes" formGroupName="martes">
+                    <div class="col-6">
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().martes.desde">Martes desde: {{mostrarHora(this.formHorarios.getRawValue().martes.desde) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().martes.desde">Martes desde que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" min="8" [max]="setMax(this.formHorarios.getRawValue().martes.hasta,18)" formControlName="desde" >
+                    </div>
+                    <div class="col-6">
+                        
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().martes.hasta">Martes hasta: {{mostrarHora(this.formHorarios.getRawValue().martes.hasta) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().martes.hasta">Martes hasta que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" [min]="setMin(this.formHorarios.getRawValue().martes.desde)" max="19" formControlName="hasta" >
+                    </div>
                 </div>
-                <div class="input-group mb-3" *ngIf="controlMiercoles">
-                    <span class="input-group-text">Miercoles</span>
-                    <input type="text" class="form-control" placeholder="Desde" formControlName="miercolesDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
-                    <input type="text" class="form-control" placeholder="Hasta" formControlName="miercolesHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+                <div class="row" *ngIf="controlMiercoles" formGroupName="miercoles">
+                    <div class="col-6">
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().miercoles.desde">Miercoles desde: {{mostrarHora(this.formHorarios.getRawValue().miercoles.desde) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().miercoles.desde">Miercoles desde que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" min="8" [max]="setMax(this.formHorarios.getRawValue().miercoles.hasta,18)" formControlName="desde" >
+                    </div>
+                    <div class="col-6">
+                        
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().miercoles.hasta">Miercoles hasta: {{mostrarHora(this.formHorarios.getRawValue().miercoles.hasta) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().miercoles.hasta">Miercoles hasta que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" [min]="setMin(this.formHorarios.getRawValue().miercoles.desde)" max="19" formControlName="hasta" >
+                    </div>
                 </div>
-                <div class="input-group mb-3" *ngIf="controlJueves">
-                    <span class="input-group-text">Jueves</span>
-                    <input type="text" class="form-control" placeholder="Desde" formControlName="juevesDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
-                    <input type="text" class="form-control" placeholder="Hasta" formControlName="juevesHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+                <div class="row" *ngIf="controlJueves" formGroupName="jueves">
+                    <div class="col-6">
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().jueves.desde">Jueves desde: {{mostrarHora(this.formHorarios.getRawValue().jueves.desde) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().jueves.desde">Jueves desde que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" min="8" [max]="setMax(this.formHorarios.getRawValue().jueves.hasta,18)" formControlName="desde" >
+                    </div>
+                    <div class="col-6">
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().jueves.hasta">Jueves hasta: {{mostrarHora(this.formHorarios.getRawValue().jueves.hasta) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().jueves.hasta">Jueves hasta que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" [min]="setMin(this.formHorarios.getRawValue().jueves.desde)" max="19" formControlName="hasta" >
+                    </div>
                 </div>
-                <div class="input-group mb-3" *ngIf="controlViernes">
-                    <span class="input-group-text">Viernes</span>
-                    <input type="text" class="form-control" placeholder="Desde" formControlName="viernesDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
-                    <input type="text" class="form-control" placeholder="Hasta" formControlName="viernesHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+                <div class="row" *ngIf="controlViernes" formGroupName="viernes">
+                    <div class="col-6">
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().viernes.desde">Viernes desde: {{mostrarHora(this.formHorarios.getRawValue().viernes.desde) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().viernes.desde">Viernes desde que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" min="8" [max]="setMax(this.formHorarios.getRawValue().viernes.hasta,18)" formControlName="desde" >
+                    </div>
+                    <div class="col-6">
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().viernes.hasta">Viernes hasta: {{mostrarHora(this.formHorarios.getRawValue().viernes.hasta) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().viernes.hasta">Viernes hasta que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" [min]="setMin(this.formHorarios.getRawValue().viernes.desde)" max="19" formControlName="hasta" >
+                    </div>
                 </div>
-                <div class="input-group mb-3" *ngIf="controlSabado">
-                    <span class="input-group-text">Viernes</span>
-                    <input type="text" class="form-control" placeholder="Desde" formControlName="sabadoDesde" onfocus="(this.type='time')" onblur="(this.type='text')">
-                    <input type="text" class="form-control" placeholder="Hasta" formControlName="sabadoHasta" onfocus="(this.type='time')" onblur="(this.type='text')">
+                <div class="row" *ngIf="controlSabado" formGroupName="sabado">
+                    <div class="col-6">
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().sabado.desde">Sabado desde: {{mostrarHora(this.formHorarios.getRawValue().sabado.desde) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().sabado.desde">Sabado desde que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" min="8" [max]="setMax(this.formHorarios.getRawValue().sabado.hasta,13)" formControlName="desde" >
+                    </div>
+                    <div class="col-6">
+                        <label  class="form-label">
+                            <div *ngIf="this.formHorarios.getRawValue().sabado.hasta">Sabado hasta: {{mostrarHora(this.formHorarios.getRawValue().sabado.hasta) | date:'H:mm'}}</div>
+                            <div *ngIf="!this.formHorarios.getRawValue().sabado.hasta">Sabado hasta que hora trabaja?</div>
+                        </label>
+                        <input type="range" class="form-range" [min]="setMin(this.formHorarios.getRawValue().sabado.desde)" max="14" formControlName="hasta" >
+                    </div>
                 </div>
-                <button class="btn btn-primary w-100" type="submit" (click)="guardarUsuario(formHorarios)" [disabled]="!formHorarios.valid">Guardar horarios</button>
+                <button class="btn btn-primary w-100 mb-3" type="submit" (click)="guardarUsuario(formHorarios)" [disabled]="!formHorarios.valid">Guardar horarios</button>
             </div>
             
         </form>

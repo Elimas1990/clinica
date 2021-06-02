@@ -5,28 +5,40 @@ import { Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ProfhorariosService {
+export class TurnoService {
 
-  dbpath:string='/horarios'
-  dataHorarios:AngularFirestoreCollection<any>;
-  horarios: Observable<any>
+  dbpath:string='/turnos'
+  dataTurnos:AngularFirestoreCollection<any>;
+  turnos: Observable<any>
   constructor(public db: AngularFirestore) { 
-    this.dataHorarios=db.collection<any>(this.dbpath)
-    this.horarios = this.dataHorarios.valueChanges()
+    this.dataTurnos=db.collection<any>(this.dbpath)
+    this.turnos = this.dataTurnos.valueChanges()
   }
 
-  create(horario:any):any{
-    return this.dataHorarios.add({...horario});
+  create(turno:any):any{
+    return this.dataTurnos.add({...turno});
 
   }
   getAll(){
-    return this.horarios;
+    return this.turnos;
   }
 
-  profPorEspecialidad(especialidad):Observable<any>{
+  getTurno(email,especialidad):Observable<any>{
 
     let subject=new Subject<any>()
-    const info= this.db.collection(this.dbpath, ref => ref.where('especialidad','==', especialidad.especialidad ))
+    const info= this.db.collection(this.dbpath, ref => ref.where('especialidad','==', especialidad ).where('emailProfesional','==', email ))
+    .valueChanges()
+    .subscribe(x =>{
+      subject.next(x)
+    })
+    return subject.asObservable();
+  }
+
+  getTurnoHorario(email,especialidad,fecha):Observable<any>{
+  
+    let subject=new Subject<any>()
+
+    this.db.collection(this.dbpath, ref => ref.where('especialidad','==', especialidad ).where('emailProfesional','==', email ).where('fecha','==', fecha.toDate() ))
     .valueChanges()
     .subscribe(x =>{
       subject.next(x)

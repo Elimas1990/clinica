@@ -1,0 +1,59 @@
+<div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 fst-italic">Turnos</h1>
+      <p class="lead my-3">Seleccione los turnos disponibles de <b>{{profSelect.nombre}} {{profSelect.apellido}}</b> como <b>{{profSelect.espselect}}</b></p>
+      <button class="btn btn-outline-light float-end" (click)="volver()">Volver a profesionales</button>
+    </div>
+</div>
+<div class="row justify-content-md-center" >
+    <div class="col-lg-12 text-center mb-3"  >
+        
+        <table class="table table-light table-bordered">
+            <thead>
+                <tr class="table-dark">
+                    <th *ngFor="let dia of fechas">{{dia.fecha | date:'EE dd/MM' | uppercase}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td *ngFor="let turnos of fechas" style="width:10%">
+                        <button class="btn  w-100 mb-3" 
+                        *ngFor="let bloq of turnos.turnos" 
+                        (click)="reservarTurno(turnos.fecha,bloq.hora)" 
+                        [ngClass]="{'btn-danger disabled': bloq.ocupado, 'btn-outline-success': !bloq.ocupado}"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            {{bloq.hora}}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary invisible" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btnmodal">Modal</button>
+  
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Turno reservado!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" routerLink=''></button>
+        </div>
+        <div class="modal-body">
+           <p>Sr/Sra <b>{{turnoSelect?.apellidoPaciente}} {{turnoSelect?.nombrePaciente}}</b></p>
+           <p>Usted reservo un turno con el <b>Dr/Dra {{turnoSelect?.apellidoProf}} {{turnoSelect?.nombreProf}}</b></p>
+           <p>Para el dia <b>{{turnoSelect?.fecha | date:'dd/MM/yyyy'}}</b> a las <b>{{turnoSelect?.fecha | date:'HH:mm'}}</b></p>
+           <p>Muchas gracias!</p>
+        </div>
+        <div class="modal-footer">
+            <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" routerLink=''>Volver a Home</button>
+        </div>
+        </div>
+    </div>
+</div>

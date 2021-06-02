@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProfhorariosService } from 'src/app/servicios/profhorarios.service';
+import * as moment from 'moment';
+import { Time } from '@angular/common';
+
 
 @Component({
   selector: 'app-horarios',
@@ -10,21 +13,11 @@ import { ProfhorariosService } from 'src/app/servicios/profhorarios.service';
 export class HorariosComponent implements OnInit {
 
   @Input() data
-  //hora:Array<string>=[]
-  //min:Array<string>=['00','30']
+
   formHorarios:FormGroup=new FormGroup({
-    especialidad:new FormControl([Validators.required])
+    especialidad:new FormControl('',[Validators.required]),
+    tiempobloque:new FormControl('',[Validators.required])
   })
-
-  constructor(private fb:FormBuilder,
-    private horarioService:ProfhorariosService) { 
-    
-  }
-
-  
-
-  ngOnInit(): void {
-  }
   controlLunes:boolean=false
   controlMartes:boolean=false
   controlMiercoles:boolean=false
@@ -32,8 +25,50 @@ export class HorariosComponent implements OnInit {
   controlViernes:boolean=false
   controlSabado:boolean=false
 
+  espSelect:string
+
+  constructor(private fb:FormBuilder,
+    private horarioService:ProfhorariosService) { 
+    
+  }
+
+  ngOnInit(): void {
+  }
+  
+  mostrarHora(h){
+    return(h*3600*1000)+10800000
+  }
+  setMax(hasta,tiempo){
+    if(hasta){
+      return hasta-1
+    }else{
+      return tiempo
+    }
+  }
+  setMin(desde){
+    if(desde){
+      return desde+1
+    }else{
+      return 8
+    }
+  }
+
+
+  selecEsp(element,control){
+    $('.btn-esp').removeClass('btn-primary')
+    if(element.target.classList.contains('btn-primary')){
+      element.target.classList.remove('btn-primary')
+      this.formHorarios.get('especialidad').setValue('')
+    }else{
+      element.target.classList.add('btn-primary')
+      this.formHorarios.get('especialidad').setValue(control)
+      this.espSelect=control
+    }
+   
+  }
   selecDia(element,control){
     let mostrar:boolean
+    let diasemana:string
     if(element.target.classList.contains('btn-primary')){
       element.target.classList.remove('btn-primary')
       mostrar=false
@@ -44,39 +79,41 @@ export class HorariosComponent implements OnInit {
     switch(control){
       case 'L':
         this.controlLunes=mostrar
-        this.addOrRemoveControl(mostrar,'lunesDesde','lunesHasta')
+        diasemana='lunes'
         break;
       case 'M':
         this.controlMartes=mostrar
-        this.addOrRemoveControl(mostrar,'martesDesde','martesHasta')
+        diasemana='martes'
         break;
       case 'Mi':
         this.controlMiercoles=mostrar
-        this.addOrRemoveControl(mostrar,'miercolesDesde','miercolesHasta')
+        diasemana='miercoles'
         break;
       case 'J':
         this.controlJueves=mostrar
-        this.addOrRemoveControl(mostrar,'juevesDesde','juevesHasta')
+        diasemana='jueves'
         break;
       case 'V':
         this.controlViernes=mostrar
-        this.addOrRemoveControl(mostrar,'viernesDesde','viernesHasta')
+        diasemana='viernes'
         break;
       case 'S':
         this.controlSabado=mostrar
-        this.addOrRemoveControl(mostrar,'sabadoDesde','sabadoHasta')
+        diasemana='sabado'
         break;
     }
+    this.addOrRemoveControl(mostrar,diasemana)
     
   }
 
-  addOrRemoveControl(mostrar,desde,hasta){
+  addOrRemoveControl(mostrar,diasemana){
     if(mostrar){
-      this.formHorarios.addControl(desde, this.fb.control('', [Validators.required])); 
-      this.formHorarios.addControl(hasta, this.fb.control('', [Validators.required])); 
+      this.formHorarios.addControl(diasemana, this.fb.group({
+        'desde': this.fb.control('', [Validators.required]), 
+        'hasta': this.fb.control('', [Validators.required])})); 
     }else{
-      this.formHorarios.removeControl(desde)
-      this.formHorarios.removeControl(hasta)
+      
+      this.formHorarios.removeControl(diasemana)
     }
   }
 
@@ -84,9 +121,12 @@ export class HorariosComponent implements OnInit {
   guardarUsuario(){
 
     let obj=this.formHorarios.getRawValue()
+    
+    
     obj.nombre=this.data.nombre
     obj.apellido=this.data.apellido
     obj.email=this.data.email
+    console.log(obj)
     this.horarioService.devolverHorario(obj.email,obj.especialidad)
     .subscribe(x =>{
       if(x.size > 0){
@@ -96,8 +136,15 @@ export class HorariosComponent implements OnInit {
       }
       this.horarioService.create(obj)
       this.formHorarios.reset()
+      this.controlLunes=false
+      this.controlMartes=false
+      this.controlMiercoles=false
+      this.controlJueves=false
+      this.controlViernes=false
+      this.controlSabado=false
+      $('.btn-esp').removeClass('btn-primary')
     })
-    
+  
   }
 
 }

@@ -12,6 +12,9 @@ import { NavbarComponent } from './navbar/navbar.component';
   imports: [
     CommonModule,
     GeneralRoutingModule
+  ],
+  exports:[
+    NavbarComponent
   ]
 })
 export class GeneralModule { }

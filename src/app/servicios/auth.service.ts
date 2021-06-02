@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { from, Observable, of } from 'rxjs';
+import { from, Observable, of, Subject } from 'rxjs';
 import { first, map,  } from 'rxjs/operators';
 import { Usuario } from '../clases/usuario';
 
@@ -11,7 +11,7 @@ import { Usuario } from '../clases/usuario';
 export class AuthService {
   usuario:string;
   userdata:Observable<any>
-  private dbpath='/usuarios';
+  dbpath='/usuarios';
   dataUsuarios:AngularFirestoreCollection<any>;
   users: Observable<any>
   id:any;
@@ -25,8 +25,6 @@ export class AuthService {
   async sendVerificationEmail(){
     return (await this.auth.currentUser).sendEmailVerification();
   }
-  
-
   async login(email:string,pass:string){
     try{
 
@@ -60,7 +58,6 @@ export class AuthService {
     }
     
   }
-
   async userInfo(email) {
     this.auth.user.subscribe(x=> {
       if(x){
@@ -72,9 +69,6 @@ export class AuthService {
     })
     
   }
-
-  
-  
   async cambiarInfo(email,mod) {
     
     const docRef=this.db.collection(this.dbpath, ref => ref.where('email','==', email ))
@@ -96,21 +90,17 @@ export class AuthService {
     return this.dataUsuarios.add({...usuario});
 
   }
-  
-
   getUserDoc(id) {
     return this.db
     .collection(this.dbpath)
     .doc(id)
     .valueChanges()
   }
-
   getUserList() { 
     return this.db
     .collection(this.dbpath)
     .snapshotChanges();
   }
-
   createUser(user) {
     return new Promise<any>((resolve, reject) =>{
       this.db
@@ -119,19 +109,38 @@ export class AuthService {
         .then(response => { console.log(response) }, error => reject(error));
     });
   }
-
   deleteUser(user) {
     return this.db
       .collection(this.dbpath)
       .doc(user.id)
       .delete();
   }
-  
   updateUser(id, mod) {
     return this.db
       .collection(this.dbpath)
       .doc(id)
       .update(mod);
+  }
+  userEspecialidad(especialidad):Observable<any>{
+    console.log(especialidad)
+    let subject=new Subject<any>()
+    const info= this.db.collection(this.dbpath, ref => ref.where('especialidad','array-contains', especialidad ))
+    .valueChanges()
+    .subscribe(x =>{
+      subject.next(x)
+    })
+    return subject.asObservable();
+  }
+
+  getUserInfoByEmail(email):Observable<any>{
+    
+    let subject=new Subject<any>()
+    const info= this.db.collection(this.dbpath, ref => ref.where('email','==', email ))
+    .valueChanges()
+    .subscribe(x =>{
+      subject.next(x)
+    })
+    return subject.asObservable();
   }
 
 }

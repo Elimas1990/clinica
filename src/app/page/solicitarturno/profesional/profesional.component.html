@@ -1,0 +1,22 @@
+<div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+
+    <div class="col-md-12 px-0">
+      <h1 class="display-4 fst-italic">Profesionales</h1>
+      <p class="lead my-3">Seleccione el profesional de <b>{{espSelect.especialidad}}</b> disponible</p>
+      <button class="btn btn-outline-light float-end" (click)="volver()">Volver a especialidades</button>
+    </div>
+</div>
+<div class="row justify-content-md-center" *ngIf="listaProfesionales.length > 0">
+    <div class="col-lg-4 text-center mb-3" *ngFor="let prof of listaProfesionales" >
+
+        <img [src]="prof.img"  class="bd-placeholder-img  border border-5  rounded-circle img-icon big-btn" (click)="selectProfesional(prof)">
+        <h2>{{prof.apellido}} {{prof.nombre}}</h2>
+        <p *ngIf="prof.hora?.lunes"><b>Lunes:</b> {{mostrarHora(prof.hora.lunes.desde) | date:'H:mm' }}hs a {{mostrarHora(prof.hora.lunes.hasta) | date:'H:mm' }}hs</p>
+        <p *ngIf="prof.hora?.martes"><b>Martes:</b> {{mostrarHora(prof.hora.martes.desde) | date:'H:mm' }}hs a {{mostrarHora(prof.hora.martes.hasta) | date:'H:mm' }}hs</p>
+        <p *ngIf="prof.hora?.miercoles"><b>Miercoles:</b> {{mostrarHora(prof.hora.miercoles.desde) | date:'H:mm' }}hs a {{mostrarHora(prof.hora.miercoles.hasta) | date:'H:mm' }}hs</p>
+        <p *ngIf="prof.hora?.jueves"><b>Jueves:</b> {{mostrarHora(prof.hora.jueves.desde) | date:'H:mm' }}hs a {{mostrarHora(prof.hora.jueves.hasta) | date:'H:mm' }}hs</p>
+        <p *ngIf="prof.hora?.viernes"><b>Viernes:</b> {{mostrarHora(prof.hora.viernes.desde) | date:'H:mm' }}hs a {{mostrarHora(prof.hora.viernes.hasta) | date:'H:mm' }}hs</p>
+        <p *ngIf="prof.hora?.sabado"><b>Sabado:</b> {{mostrarHora(prof.hora.sabado.desde) | date:'H:mm' }}hs a {{mostrarHora(prof.hora.sabado.hasta) | date:'H:mm' }}hs</p>
+
+    </div>
+</div>
