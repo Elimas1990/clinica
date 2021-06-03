@@ -26,6 +26,7 @@ export class MiturnoComponent implements OnInit {
               this.turnosService.getTurnoX(this.tipoUsuario.email,'emailPaciente')
               .subscribe(x=>{
                 this.listaTurnosPaciente=x
+                this.renderTable=true
               })
               break;
             case 'Profesional':

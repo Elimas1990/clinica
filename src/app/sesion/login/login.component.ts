@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
         this.userLogueado={email :'estebanlimas@hotmail.com',pass:'222222'}
         break;
       case "paciente":
-        this.userLogueado={email :'estebanlimas@hotmail.com',pass:'222222'}
+        this.userLogueado={email :'soledadpoli@hotmail.com',pass:'222222'}
         break;
       case "profesional":
         this.userLogueado={email :'estebanlimas@gmail.com',pass:'222222'}

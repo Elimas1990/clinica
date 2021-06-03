@@ -1,7 +1,8 @@
 <app-navbar></app-navbar>
 <div class="container">
+    
     <app-turnopaciente 
-    *ngIf="tipoUsuario?.tipouser == 'Paciente' || tipoUsuario?.tipouser == 'Administrativo'"
+    *ngIf="tipoUsuario?.tipouser == 'Paciente'"
     [listaTurnosPaciente]="listaTurnosPaciente" 
     [renderTable]="renderTable"></app-turnopaciente>
     <app-turnoprofesional 
