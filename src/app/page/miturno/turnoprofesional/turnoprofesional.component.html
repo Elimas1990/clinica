@@ -1,6 +1,6 @@
 <div class="row justify-content-md-center">
     <div class="col-lg-12">
-        <h1 *ngIf="renderTable">{{listaTurnosPaciente[0]?.apellidoPaciente}} {{listaTurnosPaciente[0]?.nombrePaciente}} estos son tus turnos:</h1>
+        <h1 *ngIf="renderTable">{{listaTurnosProfesional[0]?.apellidoProf}} {{listaTurnosProfesional[0]?.nombreProf}} turnos asignados:</h1>
         <div class="input-group invisible">
             <input type="text" placeholder="Especialidad" class="form-control" [(ngModel)]="searchText" >
             <button class="btn btn-danger">Buscar</button>
@@ -18,26 +18,37 @@
                 
             </thead>
             <tbody>
-                <!--<tr *ngFor="let h of listaTurnosPaciente | filter : searchText" >-->
-                <tr *ngFor="let turnos of listaTurnosPaciente | filter : searchText">
-                    <td>{{turnos.apellidoProf}} {{turnos.nombreProf}}</td>
+                <tr *ngFor="let turnos of listaTurnosProfesional | filter : searchText">
+                    <td>{{turnos.apellidoPaciente}} {{turnos.nombrePaciente}}</td>
                     <td>{{turnos.especialidad}}</td>
                     <td>{{turnos.fecha.toDate() | date:'dd/MM/yyyy HH:mm'}}</td>
                     <td>{{turnos.duracion}} min</td>
                     <td>{{turnos.estado}}</td>
                     <td>
                         <button class="btn btn-danger" 
-                        (click)="selectTurnoCancel(turnos)"
-                        *ngIf="turnos.estado != 'Finalizado' && turnos.estado != 'Cancelado' && turnos.estado != 'Rechazado'" 
+                        (click)="selectTurnoCambiarEstado(turnos,'Cancelado')"
+                        *ngIf="turnos.estado != 'Realizado' && turnos.estado != 'Cancelado' && turnos.estado != 'Rechazado' && turnos.estado != 'Aceptado' && turnos.estado != 'Finalizado'" 
                         data-bs-toggle="modal" data-bs-target="#modelCancel">Cancelar</button>
+                        <button class="btn btn-danger" 
+                        (click)="selectTurnoCambiarEstado(turnos,'Rechazado')"
+                        *ngIf="turnos.estado != 'Realizado' && turnos.estado != 'Cancelado' && turnos.estado != 'Rechazado' && turnos.estado != 'Aceptado' && turnos.estado != 'Finalizado'"  
+                        data-bs-toggle="modal" data-bs-target="#modelCancel">Rechazar</button>
                         <button class="btn btn-success" 
-                        (click)="selectTurnoCancel(turnos)"
+                        (click)="selectTurnoCambiarEstado(turnos,'Aceptado')"
+                        *ngIf="turnos.estado != 'Realizado' && turnos.estado != 'Cancelado' && turnos.estado != 'Rechazado' && turnos.estado != 'Aceptado' && turnos.estado != 'Finalizado'" 
+                        >Aceptar</button>
+                        <button class="btn btn-info" 
+                        (click)="selectTurnoCambiarEstado(turnos,'Finalizado')"
+                        *ngIf="turnos.estado == 'Aceptado'" 
+                        data-bs-toggle="modal" data-bs-target="#modelCancel">Finalizar</button>
+
+                        <button class="btn btn-success" 
+                        (click)="selectTurnoCambiarEstado(turnos)"
                         *ngIf="turnos.comentario" 
                         data-bs-toggle="modal" data-bs-target="#modelComentario">Ver Comentario</button> 
                         <button class="btn btn-success" 
-                        *ngIf="turnos.estado == 'Finalizado' && turnos.comentario" 
+                        *ngIf="turnos.estado == 'Realizado'" 
                         data-bs-toggle="modal" data-bs-target="#modelEncuesta">Completar encuesta</button> 
-                        
                     </td>
                 </tr>
             </tbody>
@@ -50,20 +61,24 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="modelCancelLabel">Cancelacion de turno!</h5>
+            <h5 class="modal-title" id="modelCancelLabel" *ngIf="selectTurno?.cambiarestado == 'Rechazado' ">Rechazar turno!</h5>
+            <h5 class="modal-title" id="modelCancelLabel" *ngIf="selectTurno?.cambiarestado == 'Cancelado' ">Cancelar turno!</h5>
+            <h5 class="modal-title" id="modelCancelLabel" *ngIf="selectTurno?.cambiarestado == 'Finalizado' ">Finalizar turno!</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
         </div>
         <div class="modal-body">
-            <p>Esta seguro que desea cancelar su turno?</p>
-            <p>Si es asi dejenos un comentario del porque</p>
-            <textarea  [(ngModel)]="comentarioCancelacion" class="form-control" placeholder="Comentario..."></textarea>
+            <p *ngIf="selectTurno?.cambiarestado == 'Rechazado' ">Esta seguro que desea rechazar el turno?</p>
+            <p *ngIf="selectTurno?.cambiarestado == 'Cancelado' ">Esta seguro que desea cancelar el turno?</p>
+            <p *ngIf="selectTurno?.cambiarestado == 'Finalizado' ">Esta seguro que desea finalizar el turno?</p>
+            <p>Deje un comentario</p>
+            <textarea  [(ngModel)]="comentario" class="form-control" placeholder="Comentario..."></textarea>
         </div>
         <div class="modal-footer">
             <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal" 
-            [ngClass]="{'disabled' : comentarioCancelacion.length < 10}"
+            [ngClass]="{'disabled' : comentario.length < 10}"
             (click)="cancelarTurno()"
-            >Cancelar turno</button>
+            >Confirmar</button>
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Volver</button>
         </div>
         </div>
@@ -75,23 +90,6 @@
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="modelComentarioLabel">Notas del turno!</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-        </div>
-        <div class="modal-body">
-            <p>{{selectTurno?.comentario}}</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Cerrar</button>
-        </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modelEncuesta" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modelEncuestaLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="modelEncuestaLabel">Notas del turno!</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
         </div>
         <div class="modal-body">

@@ -84,9 +84,12 @@ export class TurnoService {
     return await this.db.collection(this.dbpath).doc(id).delete();
   }
 
-  async cambiarEstadoTurno(turno,estado){
-    
-    return await this.db.collection(this.dbpath).doc(turno).update({estado: estado})
+  async cambiarEstadoTurno(turno,estado,comentario){
+    let obj={estado: estado}
+    if(estado !="Aceptado"){
+      obj['comentario']=comentario
+    }
+    return await this.db.collection(this.dbpath).doc(turno).update(obj)
 
   }
 }

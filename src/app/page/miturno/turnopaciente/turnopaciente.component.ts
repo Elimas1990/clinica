@@ -25,9 +25,20 @@ export class TurnopacienteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  cancelarTurno(turno){
+  comentarioCancelacion:string=''
+  selectTurno:any
+
+ 
+
+  selectTurnoCancel(turno){
+    this.selectTurno=turno
+
+  }
+ 
+  cancelarTurno(){
     
-    this.turnoService.cambiarEstadoTurno(turno,'Cancelado')
+    this.turnoService.cambiarEstadoTurno(this.selectTurno.eventId,'Cancelado',this.comentarioCancelacion)
+    this.comentarioCancelacion=''
     
   }
 

@@ -12,6 +12,7 @@ export class MiturnoComponent implements OnInit {
   listaTurnosPaciente=[]
   listaTurnosProfesional=[]
   renderTable:boolean=false
+  tipoUsuario:any
 
   constructor(private turnosService:TurnoService,
     private authService:AuthService) { 
@@ -19,21 +20,25 @@ export class MiturnoComponent implements OnInit {
       .subscribe(x => {
         authService.getUserInfoByEmail(x.email)
         .subscribe(x => {
-          switch(x[0].tipouser){
+          this.tipoUsuario=x[0]
+          switch(this.tipoUsuario.tipouser){
             case 'Paciente':
-              this.turnosService.getTurnoX(x[0].email,'emailPaciente')
+              this.turnosService.getTurnoX(this.tipoUsuario.email,'emailPaciente')
               .subscribe(x=>{
                 this.listaTurnosPaciente=x
               })
               break;
             case 'Profesional':
-              this.turnosService.getTurnoX(x[0].email,'emailProf')
+              console.log(this.tipoUsuario.email)
+              this.turnosService.getTurnoX(this.tipoUsuario.email,'emailProfesional')
               .subscribe(x=>{
+                console.log(x)
                 this.listaTurnosProfesional=x
+                this.renderTable=true
               })
               break;
             case 'Administrativo':
-              this.turnosService.getTurnoX(x[0].email,'emailPaciente')
+              this.turnosService.getTurnoX(this.tipoUsuario.email,'emailPaciente')
               .subscribe(x=>{
                 this.listaTurnosPaciente=x
                 this.renderTable=true

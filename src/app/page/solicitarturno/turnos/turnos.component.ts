@@ -58,7 +58,7 @@ export class TurnosComponent implements OnInit {
           .getTurnoHorario(this.profSelect.email,this.profSelect.espselect,moment(moment(new Date(diaSiguiente)).format('DD/MM/yyyy')+horaFormat.format(' HH:mm'),'DD/MM/yyyy HH:mm'))
           .subscribe(x => {
             x.forEach(element => {
-              if(element.estado != 'Rechazado'){
+              if(element.estado != 'Rechazado' && element.estado != 'Cancelado'){
                 obj.ocupado=true
               }
             })
