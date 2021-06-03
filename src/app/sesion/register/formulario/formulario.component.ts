@@ -91,7 +91,6 @@ export class FormularioComponent implements OnInit {
     private espService:EspecialidadesService) { 
       espService.getAll().subscribe(x => {
         x.forEach(element => {
-          console.log(element.especialidad)
           this.especialidades.push(element.especialidad)
           this.filteredEspecialidades = this.especialidadCtrl.valueChanges.pipe(
             startWith(null),

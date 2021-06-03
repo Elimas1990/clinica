@@ -21,10 +21,7 @@ export class PerfilComponent implements OnInit {
           .valueChanges()
           .subscribe((response) => {
             this.data=response[0]
-            storageService.storage.ref(this.data.img).getDownloadURL().subscribe(x => this.data.img=x);
-            if(this.data.img2){
-              storageService.storage.ref(this.data.img2).getDownloadURL().subscribe(x => this.data.img2=x);
-            }
+           console.log(response[0])
             this.showImg=true
         });
       }

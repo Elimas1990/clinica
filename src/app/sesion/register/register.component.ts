@@ -60,13 +60,15 @@ export class RegisterComponent implements OnInit {
     }
   }*/
   dataUsuario(user){
-    console.log(user)
-    this.storageService.tareaCloudStorage(user.img,user.email)
-    user.img=`image/${user.email}/${user.img.name}`
+    //console.log(user)
+    this.storageService.tareaCloudStorage(user.img,user.email).subscribe(x => {user.img=x
+      })
+    //user.img=`image/${user.email}/${user.img.name}`
     if(user.img2){
-      this.storageService.tareaCloudStorage(user.img2,user.email)
-      user.img2=`image/${user.email}/${user.img2.name}`
+      this.storageService.tareaCloudStorage(user.img2,user.email).subscribe(x => user.img2=x)
+      //user.img2=`image/${user.email}/${user.img2.name}`
     }
+    
     let respuesta=this.authService.register(user)
       respuesta.then(x => {
         if(x.message){

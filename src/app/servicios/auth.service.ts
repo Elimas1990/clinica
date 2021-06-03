@@ -122,7 +122,7 @@ export class AuthService {
       .update(mod);
   }
   userEspecialidad(especialidad):Observable<any>{
-    console.log(especialidad)
+    //console.log(especialidad)
     let subject=new Subject<any>()
     const info= this.db.collection(this.dbpath, ref => ref.where('especialidad','array-contains', especialidad ))
     .valueChanges()

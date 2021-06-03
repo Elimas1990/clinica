@@ -14,7 +14,8 @@ export class StorageService {
     this.filePath=`image/${usuario}/${img.name}`
     const ref=this.storage.ref(this.filePath);
     const upload=this.storage.upload(this.filePath,img);
-    console.log(ref)
+    return ref.getDownloadURL()
+    
     /*upload.snapshotChanges()
       .pipe(
         finalize(() => {

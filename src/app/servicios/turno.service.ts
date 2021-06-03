@@ -34,6 +34,18 @@ export class TurnoService {
     return subject.asObservable();
   }
 
+  getTurnoX(valor,campo):Observable<any>{
+  
+    let subject=new Subject<any>()
+
+    this.db.collection(this.dbpath, ref => ref.where(campo,'==', valor ))
+    .valueChanges({ idField: 'eventId' })
+    .subscribe(x =>{
+      subject.next(x)
+    })
+    return subject.asObservable();
+  }
+
   getTurnoHorario(email,especialidad,fecha):Observable<any>{
   
     let subject=new Subject<any>()
@@ -70,5 +82,11 @@ export class TurnoService {
 
   async eliminarSetHorario(id){
     return await this.db.collection(this.dbpath).doc(id).delete();
+  }
+
+  async cambiarEstadoTurno(turno,estado){
+    
+    return await this.db.collection(this.dbpath).doc(turno).update({estado: estado})
+
   }
 }

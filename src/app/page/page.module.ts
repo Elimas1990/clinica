@@ -17,6 +17,7 @@ import { EspecialidadComponent } from './solicitarturno/especialidad/especialida
 import { ProfesionalComponent } from './solicitarturno/profesional/profesional.component';
 import { TurnosComponent } from './solicitarturno/turnos/turnos.component';
 import { MiturnoComponent } from './miturno/miturno.component';
+import { TurnopacienteComponent } from './miturno/turnopaciente/turnopaciente.component';
 
 
 
@@ -32,7 +33,8 @@ import { MiturnoComponent } from './miturno/miturno.component';
     EspecialidadComponent,
     ProfesionalComponent,
     TurnosComponent,
-    MiturnoComponent
+    MiturnoComponent,
+    TurnopacienteComponent,
   ],
   imports: [
     CommonModule,

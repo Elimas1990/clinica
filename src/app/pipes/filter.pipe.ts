@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FilterPipe implements PipeTransform {
 
   transform(items: any[], profesional: string): any[] {
-    
+    console.log(profesional)
     if(!items) return [];
     if(!profesional) return items;
     
@@ -18,8 +18,8 @@ export class FilterPipe implements PipeTransform {
 
     return items.filter( it => {
       console.log(it)
-      if(it.nombre.toLowerCase().includes(profesional) 
-      || it.apellido.toLowerCase().includes(profesional)
+      if(it.nombreProf.toLowerCase().includes(profesional) 
+      || it.apellidoProf.toLowerCase().includes(profesional)
       || it.especialidad?.toLowerCase().includes(profesional)){
         return it
       }

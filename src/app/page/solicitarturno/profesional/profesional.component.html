@@ -11,6 +11,7 @@
 
         <img [src]="prof.img"  class="bd-placeholder-img  border border-5  rounded-circle img-icon big-btn" (click)="selectProfesional(prof)">
         <h2>{{prof.apellido}} {{prof.nombre}}</h2>
+        <p *ngIf="!prof.hora" class="text-danger">El profesional no posee horarios actualmente</p>
         <p *ngIf="prof.hora?.lunes"><b>Lunes:</b> {{mostrarHora(prof.hora.lunes.desde) | date:'H:mm' }}hs a {{mostrarHora(prof.hora.lunes.hasta) | date:'H:mm' }}hs</p>
         <p *ngIf="prof.hora?.martes"><b>Martes:</b> {{mostrarHora(prof.hora.martes.desde) | date:'H:mm' }}hs a {{mostrarHora(prof.hora.martes.hasta) | date:'H:mm' }}hs</p>
         <p *ngIf="prof.hora?.miercoles"><b>Miercoles:</b> {{mostrarHora(prof.hora.miercoles.desde) | date:'H:mm' }}hs a {{mostrarHora(prof.hora.miercoles.hasta) | date:'H:mm' }}hs</p>

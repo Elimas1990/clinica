@@ -25,20 +25,16 @@ export class ProfesionalComponent implements OnInit {
   ngOnInit(): void {
     this.authService.userEspecialidad(this.espSelect.especialidad)
     .subscribe(x=>{
-
       x.forEach(element => {
-        
-        this.storageService.storage.ref(element.img).getDownloadURL().subscribe(x => element.img=x)
-
+        /*this.storageService.storage.ref(element.img).getDownloadURL()
+        .subscribe(x => element.img=x)*/
         this.horarioService.devolverHorario(element.email,this.espSelect.especialidad)
         .subscribe(x=> {
           x.forEach(hora => {
             element.hora=hora.data()
           })
         })
-      });
-      
-   
+      })
       this.listaProfesionales=x
     })
   }
