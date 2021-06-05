@@ -12,7 +12,7 @@ export class TurnoService {
   turnos: Observable<any>
   constructor(public db: AngularFirestore) { 
     this.dataTurnos=db.collection<any>(this.dbpath)
-    this.turnos = this.dataTurnos.valueChanges()
+    this.turnos = this.dataTurnos.valueChanges({ idField: 'eventId' })
   }
 
   create(turno:any):any{
@@ -84,12 +84,26 @@ export class TurnoService {
     return await this.db.collection(this.dbpath).doc(id).delete();
   }
 
-  async cambiarEstadoTurno(turno,estado,comentario){
-    let obj={estado: estado}
-    if(estado !="Aceptado"){
-      obj['comentario']=comentario
+  async cambiarEstadoTurno(estado,comentario){
+    let obj=comentario
+    if(estado =="Aceptado"){
+      delete obj.comentario
     }
-    return await this.db.collection(this.dbpath).doc(turno).update(obj)
+    /*if(estado !="Aceptado"){
+      obj['comentario']=comentario
+    }*/
+    return await this.db.collection(this.dbpath).doc(estado.eventId).update(obj)
 
+  }
+  getHistoriaClinica(email):Observable<any>{
+  
+    let subject=new Subject<any>()
+
+    this.db.collection(this.dbpath, ref => ref.where('emailPaciente','==', email ).where('estado','==', 'Finalizado' ))
+    .valueChanges()
+    .subscribe(x =>{
+      subject.next(x)
+    })
+    return subject.asObservable();
   }
 }

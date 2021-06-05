@@ -1,0 +1,12 @@
+<div class="container">
+    <h5>Historia Clínica</h5>
+    <table class="table table-striped">
+        <tr *ngFor="let historia of listaHistoriaClinica">
+            <td>{{historia.apellidoProf}} {{historia.nombreProf}}</td>
+            <td>{{historia.especialidad}}</td>
+            <td>{{historia.fecha.toDate() | date:'dd/MM/yyy HH:mm'}}</td>
+            <td>{{historia.comentario}}</td>
+        </tr>
+    </table>
+</div>
+

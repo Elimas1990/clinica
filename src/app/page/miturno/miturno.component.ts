@@ -9,6 +9,7 @@ import { TurnoService } from 'src/app/servicios/turno.service';
 })
 export class MiturnoComponent implements OnInit {
 
+  listaTurnos=[]
   listaTurnosPaciente=[]
   listaTurnosProfesional=[]
   renderTable:boolean=false
@@ -18,35 +19,36 @@ export class MiturnoComponent implements OnInit {
     private authService:AuthService) { 
       authService.auth.user
       .subscribe(x => {
-        authService.getUserInfoByEmail(x.email)
-        .subscribe(x => {
-          this.tipoUsuario=x[0]
-          switch(this.tipoUsuario.tipouser){
-            case 'Paciente':
-              this.turnosService.getTurnoX(this.tipoUsuario.email,'emailPaciente')
-              .subscribe(x=>{
-                this.listaTurnosPaciente=x
-                this.renderTable=true
-              })
-              break;
-            case 'Profesional':
-              console.log(this.tipoUsuario.email)
-              this.turnosService.getTurnoX(this.tipoUsuario.email,'emailProfesional')
-              .subscribe(x=>{
-                console.log(x)
-                this.listaTurnosProfesional=x
-                this.renderTable=true
-              })
-              break;
-            case 'Administrativo':
-              this.turnosService.getTurnoX(this.tipoUsuario.email,'emailPaciente')
-              .subscribe(x=>{
-                this.listaTurnosPaciente=x
-                this.renderTable=true
-              })
-              break;
-          }
-        })
+        if(x?.email){
+          authService.getUserInfoByEmail(x.email)
+          .subscribe(x => {
+            this.tipoUsuario=x[0]
+            switch(this.tipoUsuario.tipouser){
+              case 'Paciente':
+                this.turnosService.getTurnoX(this.tipoUsuario.email,'emailPaciente')
+                .subscribe(x=>{
+                  this.listaTurnosPaciente=x
+                  this.renderTable=true
+                })
+                
+                break;
+              case 'Profesional':
+                this.turnosService.getTurnoX(this.tipoUsuario.email,'emailProfesional')
+                .subscribe(x=>{
+                  this.listaTurnosProfesional=x
+                  this.renderTable=true
+                })
+                break;
+              case 'Administrativo':
+                this.turnosService.getAll()
+                .subscribe(x=>{
+                  this.listaTurnos=x
+                  this.renderTable=true
+                })
+                break;
+            }
+          })
+        }
       })
   }
   dtOptions: DataTables.Settings = {};

@@ -1,0 +1,66 @@
+<div class="row justify-content-md-center">
+    <div class="col-lg-12">
+        <h1 *ngIf="renderTable">Todos los turnos</h1>
+        <div class="input-group">
+            <input type="text" placeholder="Especialidad" class="form-control" [(ngModel)]="searchText" >
+            <button class="btn btn-danger">Buscar</button>
+        </div>
+        <table *ngIf="renderTable" class="table table-primary table-hover" >
+            <thead class="table-dark">
+                <tr>
+                    <th>Profesional</th>
+                    <th>Paciente</th>
+                    <th>Especialidad</th>
+                    <th>Turno</th>
+                    <th>Duración</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>        
+            </thead>
+            <tbody>
+                <tr *ngFor="let turnos of listaTurnos | filter : searchText">
+                    <td>{{turnos.apellidoProf}} {{turnos.nombreProf}}</td>
+                    <td>{{turnos.apellidoPaciente}} {{turnos.nombrePaciente}}</td>
+                    <td>{{turnos.especialidad}}</td>
+                    <td>{{turnos.fecha.toDate() | date:'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{turnos.duracion}} min</td>
+                    <td>{{turnos.estado}}</td>
+                    <td>
+                        <button class="btn btn-danger" 
+                        (click)="selectTurnoCambiarEstado(turnos,'Cancelado')"
+                        *ngIf="turnos.estado != 'Realizado' && turnos.estado != 'Cancelado' && turnos.estado != 'Rechazado' && turnos.estado != 'Aceptado' && turnos.estado != 'Finalizado'" 
+                        data-bs-toggle="modal" data-bs-target="#modelAdm">Cancelar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modelAdm" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" *ngIf="selectTurno?.cambiarestado == 'Cancelado' ">Cancelar turno!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+            </div>
+            <form [formGroup]="formBase" (ngSubmit)="formBase.valid">
+                <div class="modal-body">
+                    <p *ngIf="selectTurno?.cambiarestado == 'Cancelado' ">Esta seguro que desea cancelar el turno?</p>
+                    <p>Deje un comentario</p>
+                    <textarea   class="form-control  mb-3" placeholder="Comentario..." formControlName="comentario"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal"  
+                    [disabled]="!formBase.valid"
+                    (click)="guardarInfo()"
+                    >Confirmar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Volver</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>

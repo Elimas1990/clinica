@@ -3,18 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { GeneralRoutingModule } from './general-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
+import { HistoriaclinicaComponent } from './historiaclinica/historiaclinica.component';
 
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    HistoriaclinicaComponent
   ],
   imports: [
     CommonModule,
     GeneralRoutingModule
   ],
   exports:[
-    NavbarComponent
+    NavbarComponent,
+    HistoriaclinicaComponent
   ]
 })
 export class GeneralModule { }

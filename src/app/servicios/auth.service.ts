@@ -131,6 +131,12 @@ export class AuthService {
     })
     return subject.asObservable();
   }
+  getUserInfoByEmail2(email){
+    
+    let subject=new Subject<any>()
+    const info= this.db.collection(this.dbpath, ref => ref.where('email','==', email )).get()
+    return info
+  }
 
   getUserInfoByEmail(email):Observable<any>{
     

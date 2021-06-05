@@ -9,4 +9,9 @@
     *ngIf="tipoUsuario?.tipouser == 'Profesional'"
     [listaTurnosProfesional]="listaTurnosProfesional" 
     [renderTable]="renderTable"></app-turnoprofesional>
+    <app-turnostodos
+    *ngIf="tipoUsuario?.tipouser == 'Administrativo'"
+    [listaTurnos]="listaTurnos" 
+    [renderTable]="renderTable"
+    ></app-turnostodos>
 </div>

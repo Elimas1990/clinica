@@ -21,25 +21,29 @@
           <li class="nav-item" *ngIf="userlogin && user | async as user">
             <a class="nav-link" aria-current="page" routerLink="/perfil">Perfil</a>
           </li>
-          <li class="nav-item">
-                <a class="nav-link" routerLink="/sesion/register">Register</a>
-          </li>
           <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex" *ngIf="user | async as user;else login">
             <li class="nav-item" *ngIf="user">
                 <a class="nav-link" (click)="desloguear()">Logout</a>
             </li>
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a class="nav-link">{{user?.email}}</a>
+            </li>-->
+            <li class="nav-item">
+                <a class="nav-link"><img [src]="user2?.img" class=" border border-1 rounded-circle img-icon" alt="" width="30" height="30"></a>
             </li>
             <li class="nav-item">
               <a class="nav-link">{{user2?.nombre}}</a>
             </li>
-        </ul>
+          </ul>
         <ng-template #login>
             <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex" >
-                <li class="nav-item">
-                    <a class="nav-link" routerLink='/sesion/login' >Login</a>
-                </li>
+              <li class="nav-item" >
+                <a class="nav-link" routerLink="/sesion/register">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink='/sesion/login' >Login</a>
+              </li>
+              
             </ul>
         </ng-template>
 

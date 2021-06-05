@@ -75,31 +75,59 @@ export class TurnosComponent implements OnInit {
 
   turnoSelect:any
   reservarTurno(fecha,bloq){
+    console.log(fecha)
+    console.log(bloq)
     let f=moment(fecha).utcOffset("-03:00")
     f.set({hour:Number(moment(bloq,'HH mm').format('H')),minute:Number(moment(bloq,'HH mm').format('m')),second:0,millisecond:0})
-    
     this.authService.auth.user
-    .subscribe(x=>{
-      this.authService.getUserInfoByEmail(x.email)
-      .subscribe(dat=>{
-        let obj={
-          fecha:f.toDate(),
-          turno:bloq,
-          nombreProf:this.profSelect.nombre,
-          apellidoProf:this.profSelect.apellido,
-          especialidad:this.profSelect.espselect,
-          duracion:this.profSelect.tiempobloque,
-          emailProfesional:this.profSelect.email,
-          emailPaciente:dat[0].email,
-          nombrePaciente:dat[0].nombre,
-          apellidoPaciente:dat[0].apellido,
-          estado:'Solicitado'
-        }
-        this.turnosService.create(obj)
-        this.turnoSelect=obj
-        $('#btnmodal').trigger( "click" )
-      })
-    })
+    .forEach(x=>{
+      this.authService.getUserInfoByEmail2(x.email).subscribe((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            
+            let obj={
+              fecha:f.toDate(),
+              turno:bloq,
+              nombreProf:this.profSelect.nombre,
+              apellidoProf:this.profSelect.apellido,
+              especialidad:this.profSelect.espselect,
+              duracion:this.profSelect.tiempobloque,
+              emailProfesional:this.profSelect.email,
+              emailPaciente:doc.data()['email'],
+              nombrePaciente:doc.data()['nombre'],
+              apellidoPaciente:doc.data()['apellido'],
+              estado:'Solicitado'
+            }
+            this.turnosService.create(obj)
+            this.turnoSelect=obj
+            $('#btnmodal').trigger( "click" )
+        });
+    });})
+    /*this.authService.auth.user
+    .forEach(x=>{
+      console.log(x)
+      if(x?.email){
+        this.authService.getUserInfoByEmail(x.email)
+        .subscribe(dat=>{
+          let obj={
+            fecha:f.toDate(),
+            turno:bloq,
+            nombreProf:this.profSelect.nombre,
+            apellidoProf:this.profSelect.apellido,
+            especialidad:this.profSelect.espselect,
+            duracion:this.profSelect.tiempobloque,
+            emailProfesional:this.profSelect.email,
+            emailPaciente:dat[0].email,
+            nombrePaciente:dat[0].nombre,
+            apellidoPaciente:dat[0].apellido,
+            estado:'Solicitado'
+          }
+          this.turnosService.create(obj)
+          this.turnoSelect=obj
+          $('#btnmodal').trigger( "click" )
+        })
+      }
+    })*/
   }
 
   volver(){

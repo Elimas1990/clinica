@@ -19,6 +19,7 @@ import { TurnosComponent } from './solicitarturno/turnos/turnos.component';
 import { MiturnoComponent } from './miturno/miturno.component';
 import { TurnopacienteComponent } from './miturno/turnopaciente/turnopaciente.component';
 import { TurnoprofesionalComponent } from './miturno/turnoprofesional/turnoprofesional.component';
+import { TurnostodosComponent } from './miturno/turnostodos/turnostodos.component';
 
 
 
@@ -37,6 +38,7 @@ import { TurnoprofesionalComponent } from './miturno/turnoprofesional/turnoprofe
     MiturnoComponent,
     TurnopacienteComponent,
     TurnoprofesionalComponent,
+    TurnostodosComponent,
   ],
   imports: [
     CommonModule,
