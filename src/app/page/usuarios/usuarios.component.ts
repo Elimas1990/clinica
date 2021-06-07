@@ -20,15 +20,20 @@ export class UsuariosComponent implements OnInit {
         url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
     }
   }
+  userSelect:any
+  emailUser(email){
+    this.userSelect=email
+  }
   constructor(private authService:AuthService) {
 
     this.authService.getUserList().subscribe(res => {
-      this.listaUsers=res.map( e => {
+      this.listaUsers=res
+      /*this.listaUsers=res.map( e => {
           let data=e.payload.doc.data()
           data['id']=e.payload.doc.id
           this.render=true
           return data
-      })
+      })*/
     }); 
 
 

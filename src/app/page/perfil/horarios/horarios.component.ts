@@ -126,7 +126,6 @@ export class HorariosComponent implements OnInit {
     obj.nombre=this.data.nombre
     obj.apellido=this.data.apellido
     obj.email=this.data.email
-    console.log(obj)
     this.horarioService.devolverHorario(obj.email,obj.especialidad)
     .subscribe(x =>{
       if(x.size > 0){

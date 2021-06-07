@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { VerificaemailComponent } from './verificaemail/verificaemail.component';
 import { FormularioComponent } from './register/formulario/formulario.component';
 import { GeneralModule } from '../general/general.module';
+import { RecaptchaModule,RecaptchaFormsModule } from 'ng-recaptcha';
 
 
 @NgModule({
@@ -30,7 +31,9 @@ import { GeneralModule } from '../general/general.module';
     MatChipsModule,
     MatIconModule,
     MatFormFieldModule,
-    GeneralModule
+    GeneralModule,
+    RecaptchaModule,
+    RecaptchaFormsModule
   ],
   exports:[
     RegisterComponent,

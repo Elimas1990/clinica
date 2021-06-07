@@ -36,14 +36,19 @@ export class RegisterComponent implements OnInit {
   tipoform:string=''
   mostrarFormularios=false
   centradoForm:string;
+  desdeDonde:string;
 
   constructor(private route:Router,
     private authService:AuthService,
     private storageService:StorageService) {
-      if(route.url == '/usuarios'){
-        this.centradoForm="col-lg-12"
-      }else{
-        this.centradoForm="col-lg-4"
+      this.desdeDonde=route.url
+      switch(this.desdeDonde){
+        case "/usuarios":
+          this.centradoForm="col-lg-12"
+          break;
+        case "/sesion/register":
+          this.centradoForm="col-lg-4"
+          break;
       }
   }
 
@@ -51,22 +56,11 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  /*arrayVacio(control: AbstractControl):null |object {
-    
-    if(control.value.length == 0){
-      return {arrayVacio: false,invalid: true};
-    }else{
-      return {arrayVacio: true,invalid: false};
-    }
-  }*/
   dataUsuario(user){
-    //console.log(user)
     this.storageService.tareaCloudStorage(user.img,user.email).subscribe(x => {user.img=x
       })
-    //user.img=`image/${user.email}/${user.img.name}`
     if(user.img2){
       this.storageService.tareaCloudStorage(user.img2,user.email).subscribe(x => user.img2=x)
-      //user.img2=`image/${user.email}/${user.img2.name}`
     }
     
     let respuesta=this.authService.register(user)

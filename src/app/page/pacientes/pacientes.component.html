@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <!--<app-historiaclinica></app-historiaclinica>-->
+    <div class="row">
+        <div class="col-lg-3 col-md-4" *ngFor="let user of listaPacientes">
+            <div class="card mt-3"  >
+                <img [src]="user.img" class="card-img-top " style="height: 18rem;" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.apellido}} {{user.nombre}}</h5>
+                    <p class="card-text">Edad: {{user.edad}}</p>
+                    <p class="card-text">DNI: {{user.dni}}</p>
+                    <p class="card-text">Email: {{user.email}}</p>
+                    <p class="card-text">Tipo user: {{user.tipouser}}</p>
+                    <p class="card-text" *ngIf="user.tipouser == 'Profesional'">Especialidad: {{user.especialidad}}</p>
+                    <h5>Ultimas 3 visitas</h5>
+                    <div *ngFor="let turno of user.turnos">
+                        <p class="card-text">
+                            {{turno.fecha.toDate() | date:'dd/MM/yy HH:mm'}}
+                            {{turno.comentario}}
+                        </p>
+                        <hr>
+                    </div>
+                    <button class="btn btn-info" *ngIf="user.tipouser =='Paciente'" (click)="emailUser(user.email)" data-bs-toggle="modal" data-bs-target="#modelComentario"><i class="fas fa-notes-medical"></i></button> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modelComentario" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modelComentarioLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modelComentarioLabel">Historia Clinica!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+        </div>
+        <div class="modal-body">
+            <app-historiaclinica [userEmailSelect]="userSelect" *ngIf="userSelect"></app-historiaclinica>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Cerrar</button>
+        </div>
+        </div>
+    </div>
+</div>

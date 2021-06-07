@@ -3,8 +3,8 @@
     <div class="row justify-content-md-center">
         <div class="col-lg-8" >
             <h1 class="text-center mt-3">Usuarios</h1>
-            <div class="table-responsive">
-                <table *ngIf="render" class="table table-primary table-striped" datatable [dtOptions]="dtOptions" id="tabla-resultados">
+            <div class="table-responsive" style="height: 80vh;">
+                <table  class="table table-primary table-striped" id="tabla-resultados">
                     <thead class="table-dark">
                         <tr >
                             <th>Nombre</th>
@@ -28,27 +28,35 @@
                             <td>{{user.especialidad}}</td>
                             <td>
                                 <div class="btn-group">
-                                    <button class="btn btn-danger" *ngIf="!user.estado && user.tipouser =='Profesional'" (click)="statusProfesional(user.id,user.estado)"><i class="fa fa-user-slash"></i></button> 
-                                    <button class="btn btn-success" *ngIf="user.estado && user.tipouser =='Profesional'" (click)="statusProfesional(user.id,user.estado)"><i class="fa fa-user"></i></button> 
+                                    <button class="btn btn-danger" *ngIf="!user.estado && user.tipouser =='Profesional'" (click)="statusProfesional(user.eventId,user.estado)"><i class="fa fa-user-slash"></i></button> 
+                                    <button class="btn btn-success" *ngIf="user.estado && user.tipouser =='Profesional'" (click)="statusProfesional(user.eventId,user.estado)"><i class="fa fa-user"></i></button> 
+                                    <button class="btn btn-info" *ngIf="user.tipouser =='Paciente'" (click)="emailUser(user.email)" data-bs-toggle="modal" data-bs-target="#modelComentario"><i class="fas fa-notes-medical"></i></button> 
                                 </div>
-                                
-                            </td>
-                            <!--<td>{{user.fecha.toDate() | date:'dd/MM/yyyy h:mm:ss a'}}</td>-->
-        
-                            
+                            </td> 
                         </tr>
                     </tbody>
-                </table>
-                <div class="d-flex justify-content-center" *ngIf="!render" >
-                    <div class="spinner-border" role="status">
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-            
+                </table>            
             </div>
         </div>
         <div class="col-lg-4">
             <app-register></app-register>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modelComentario" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modelComentarioLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modelComentarioLabel">Historia Clinica!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+            </div>
+            <div class="modal-body">
+                <app-historiaclinica [userEmailSelect]="userSelect" *ngIf="userSelect"></app-historiaclinica>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Cerrar</button>
+            </div>
+            </div>
         </div>
     </div>
 </div>

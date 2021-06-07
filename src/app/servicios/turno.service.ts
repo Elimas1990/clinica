@@ -46,6 +46,17 @@ export class TurnoService {
     return subject.asObservable();
   }
 
+  get3UltimosTurnos(emailPaciente,emailProfesional){
+    
+    return  this.db.collection(this.dbpath, ref => 
+      ref.where('emailPaciente','==', emailPaciente )
+      .where('emailProfesional','==', emailProfesional )
+      .where('estado','==', 'Finalizado' )
+      .orderBy('fecha','desc')
+      .limit(3))
+
+  }
+
   getTurnoHorario(email,especialidad,fecha):Observable<any>{
   
     let subject=new Subject<any>()
@@ -95,15 +106,40 @@ export class TurnoService {
     return await this.db.collection(this.dbpath).doc(estado.eventId).update(obj)
 
   }
-  getHistoriaClinica(email):Observable<any>{
+  getHistoriaClinica(email,campo):Observable<any>{
   
     let subject=new Subject<any>()
 
-    this.db.collection(this.dbpath, ref => ref.where('emailPaciente','==', email ).where('estado','==', 'Finalizado' ))
-    .valueChanges()
-    .subscribe(x =>{
-      subject.next(x)
-    })
+    if(campo){
+      this.db.collection(this.dbpath, ref => ref.where(campo,'==', email ).where('estado','==', 'Finalizado' ))
+      .valueChanges()
+      .subscribe(x =>{
+        subject.next(x)
+      })
+    }else{
+      this.db.collection(this.dbpath, ref => ref.where('estado','==', 'Finalizado' ).orderBy('fecha','desc'))
+      .valueChanges()
+      .subscribe(x =>{
+        subject.next(x)
+      })
+    }
+    
     return subject.asObservable();
   }
+
+  countByField(especialidad){
+    let ref=this.db.collection(this.dbpath, ref => ref.where('especialidad','==', especialidad ).where('estado','==', 'Finalizado' ))
+    let snapshot=ref.get()
+    return snapshot
+  }
+
+  turnosXdia(especialidad){
+    let ref=this.db.collection(this.dbpath)
+    .get()
+    
+  }
+
+
+
 }
+

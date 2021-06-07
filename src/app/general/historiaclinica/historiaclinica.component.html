@@ -1,12 +1,64 @@
-<div class="container">
-    <h5>Historia Clínica</h5>
-    <table class="table table-striped">
+<div class="container" *ngIf="this.listaHistoriaClinica.length > 0; else elseBlock">
+    <div class="row">
+        <div class="col-lg-6">
+            <h5 >Historia Clínica</h5>
+        </div>
+        <div class="col-lg-6">
+            <div class="btn-group float-end">
+                <button (click)="ExportTOExcel()" class="btn btn-outline-success"><i class="fas fa-file-excel"></i></button> 
+                <button (click)="createPdf()" class="btn btn-outline-danger"><i class="fas fa-file-pdf"></i></button> 
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="table-responsive"  [ngStyle]="{'height': styleExp}" id="htmlData">
+        <table class="table table-striped" #TABLE2 #table2>
+            <thead>
+                <tr>
+                    <th>Paciente</th>
+                    <th>Profesional</th>
+                    <th>Especialidad</th>
+                    <th>Fecha</th>
+                    <th>Comentario</th>
+                    <th>Historia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let historia of listaHistoriaClinica">
+                    <td>{{historia.apellidoPaciente}} {{historia.nombrePaciente}}</td>
+                    <td>{{historia.apellidoProf}} {{historia.nombreProf}}</td>
+                    <td>{{historia.especialidad}}</td>
+                    <td>{{historia.fecha.toDate() | date:'dd/MM/yyy HH:mm'}}</td>
+                    <td>{{historia.comentario}}</td>
+                    <td ><p *ngFor="let dat of historia.historia | keyvalue"> {{dat.key | titlecase}}: {{dat.value }} </p></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #elseBlock><div class="alert alert-danger text-center">No hay datos en la Historia Clinica</div></ng-template>
+
+<table #TABLE #table style="display:none">
+    <thead>
+        <tr>
+            <th>Paciente</th>
+            <th>Profesional</th>
+            <th>Especialidad</th>
+            <th>Fecha</th>
+            <th>Comentario</th>
+            <th>Historia</th>
+        </tr>
+    </thead>
+    <tbody>
         <tr *ngFor="let historia of listaHistoriaClinica">
+            <td>{{historia.apellidoPaciente}} {{historia.nombrePaciente}}</td>
             <td>{{historia.apellidoProf}} {{historia.nombreProf}}</td>
             <td>{{historia.especialidad}}</td>
             <td>{{historia.fecha.toDate() | date:'dd/MM/yyy HH:mm'}}</td>
             <td>{{historia.comentario}}</td>
+            <td *ngFor="let dat of historia.historia | keyvalue"> {{dat.key | titlecase}}: {{dat.value }} </td>
         </tr>
-    </table>
-</div>
-
+    </tbody>
+</table>

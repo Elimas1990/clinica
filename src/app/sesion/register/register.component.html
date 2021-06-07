@@ -1,19 +1,23 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="desdeDonde == '/sesion/register'"></app-navbar>
 <div class="container">
     <div class="row justify-content-md-center">
 
         <div  [ngClass]="centradoForm">
             <h1 class="m-3 text-center"><u>Register</u></h1>
             <div class="bg-light bg-gradient border px-3 shadow" *ngIf="!mostrarFormularios" [@inOutAnimation] >
-                <button class="btn btn-info w-100 my-3 p-3 shadow" (click)="mostrarForm('paciente')" >
+                <button class="btn btn-info w-100 my-3 p-3 shadow" 
+                (click)="mostrarForm('paciente')" >
                     <h1>Paciente</h1>
                     <i class="fas fa-user-injured fa-3x"></i>
                 </button>
-                <button class="btn btn-success w-100 my-3 p-3 shadow" (click)="mostrarForm('profesional')">
+                <button class="btn btn-success w-100 my-3 p-3 shadow" 
+                (click)="mostrarForm('profesional')">
                     <h1>Profesional</h1>
                     <i class="fas fa-user-md fa-3x"></i>
                 </button>
-                <button class="btn btn-warning w-100 my-3 p-3 shadow" (click)="mostrarForm('administracion')">
+                <button class="btn btn-warning w-100 my-3 p-3 shadow" 
+                *ngIf="desdeDonde != '/sesion/register'"
+                (click)="mostrarForm('administracion')">
                     <h1>Administrativo</h1>
                     <i class="fas fa-user-tie fa-3x"></i>
                 </button>

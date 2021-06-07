@@ -53,7 +53,8 @@ export class FormularioComponent implements OnInit {
     dni:new FormControl('',[Validators.required,Validators.minLength(6)]),
     pass:new FormControl('',[Validators.required,Validators.minLength(6)]),
     pass2:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    foto1:new FormControl('',[Validators.required])
+    foto1:new FormControl('',[Validators.required]),
+    captcha:new FormControl(null,[Validators.required])
   })
 
   fileToUpload: File = null;
@@ -174,7 +175,8 @@ export class FormularioComponent implements OnInit {
   }
 
   async guardarUsuario(formulario){
-    let objBase={
+    console.log(formulario.getRawValue())
+    /*let objBase={
       nombre:formulario.getRawValue().nombre,
       apellido:formulario.getRawValue().apellido,
       email:formulario.getRawValue().email,
@@ -210,28 +212,18 @@ export class FormularioComponent implements OnInit {
       }
   
       this.dataUsuario.emit(objBase)
-      /*let respuesta=this.authService.register(aRegistrar)
-      respuesta.then(x => {
-        if(x.message){
-          this.mensajeError=x.message
-        }else{
-          this.mensajeError=null
-          delete aRegistrar.pass;
-          this.authService.create(aRegistrar)
-          this.route.navigate(['sesion/verifica-email'])
-        }
-      })*/
+
     }
     catch(error){
       console.log(error)
-    }
+    }*/
   }
 
   volver(){
     this.volverRegistros.emit(false)
   }
 
-  probar(){
-    
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response: ${captchaResponse}`);
   }
 }

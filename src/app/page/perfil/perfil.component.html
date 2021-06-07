@@ -4,7 +4,7 @@
     <div class="row justify-content-md-center">
         <div class="col-lg-8">
             
-            <div class="border-1 shadow rounded mt-5">
+            <div class="border-1 shadow rounded mt-3">
                 <div class="text-center bg-indigo">
                     <h1>Perfil</h1>
                     <div class="spinner-border text-center mt-5" style="width: 3rem; height: 3rem;" role="status" *ngIf="!showImg">
@@ -23,7 +23,7 @@
                 <div *ngIf="data?.tipouser == 'Profesional'">
                     <app-horarios [data]="data"></app-horarios>
                 </div>
-                <app-historiaclinica></app-historiaclinica>
+                <app-historiaclinica [userEmailSelect]="data.email" *ngIf="data?.tipouser == 'Paciente'"></app-historiaclinica>
             </div>
         </div>
     </div>

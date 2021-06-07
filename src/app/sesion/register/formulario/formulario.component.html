@@ -112,6 +112,18 @@
                 La primera foto es requerido
             </div>
         </div>
+        <div class="d-flex justify-content-center">
+            <re-captcha
+                formControlName="captcha"
+                siteKey="6LfR7hsbAAAAAHKF2HkpZjaE0uz59nh2R_qOKPXY"
+                [ngClass]="{'is-invalid':formRegistro.get('captcha').touched && formRegistro.get('captcha').invalid}"
+            ></re-captcha>
+            <div class="invalid-feedback" *ngIf="formRegistro.get('captcha').errors?.required && formRegistro.get('captcha').touched">
+                El captcha es requerido
+            </div>
+        </div>
+        
+        
         
         <button type="button" class="btn btn-success w-100 my-2"  type="submit" (click)="guardarUsuario(formRegistro)" [disabled]="!formRegistro.valid">Generar Usuario</button>
     </form>

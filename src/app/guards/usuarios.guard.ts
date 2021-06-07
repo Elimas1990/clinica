@@ -14,7 +14,6 @@ export class UsuariosGuard implements CanActivate {
         .valueChanges()
         .subscribe((response) => {
         this.userData=response[0]
-        console.log(this.userData)
       });
     })
   }
@@ -22,7 +21,6 @@ export class UsuariosGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       let user=JSON.parse(localStorage.getItem('user'))
-      console.log(this.userData?.tipouser)
       if(this.userData?.tipouser == 'Administrativo' && this.userData?.estado){
         return true
       }else{

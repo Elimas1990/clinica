@@ -20,6 +20,9 @@ import { MiturnoComponent } from './miturno/miturno.component';
 import { TurnopacienteComponent } from './miturno/turnopaciente/turnopaciente.component';
 import { TurnoprofesionalComponent } from './miturno/turnoprofesional/turnoprofesional.component';
 import { TurnostodosComponent } from './miturno/turnostodos/turnostodos.component';
+import { PacientesComponent } from './pacientes/pacientes.component';
+import { EstadisticasComponent } from './estadisticas/estadisticas.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 
 
@@ -39,6 +42,8 @@ import { TurnostodosComponent } from './miturno/turnostodos/turnostodos.componen
     TurnopacienteComponent,
     TurnoprofesionalComponent,
     TurnostodosComponent,
+    PacientesComponent,
+    EstadisticasComponent,
   ],
   imports: [
     CommonModule,
@@ -47,7 +52,8 @@ import { TurnostodosComponent } from './miturno/turnostodos/turnostodos.componen
     SesionModule,
     ReactiveFormsModule,
     FormsModule,
-    GeneralModule
+    GeneralModule,
+    HighchartsChartModule
   ]
 })
 export class PageModule { }

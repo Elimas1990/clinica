@@ -1,5 +1,5 @@
 .bg {
-    background-image: url("./../../../assets/about.jpg");
+    background-image: url("/assets/about.jpg");
     
     background-repeat: no-repeat;
     background-size: cover;

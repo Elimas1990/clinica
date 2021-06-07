@@ -27,9 +27,10 @@ export class AuthService {
   }
   async login(email:string,pass:string){
     try{
-
+      
       const result= await this.auth.signInWithEmailAndPassword(email,pass);
-      this.userInfo(email)
+      
+      this.userInfo('login')
       return result;
     }
     catch (error){
@@ -51,24 +52,43 @@ export class AuthService {
   }
   async logout(){
     try{
+      this.userInfo('logout')
       await this.auth.signOut();
       localStorage.removeItem('user');
+      
     }
     catch (error){
     }
     
   }
-  async userInfo(email) {
-    this.auth.user.subscribe(x=> {
-      if(x){
-        let info=this.db.collection(this.dbpath, ref => ref.where('email','==', x.email )).valueChanges()
-        info.subscribe(x =>localStorage.setItem('user', JSON.stringify(x[0])))
-        return info
-      }
+  async userInfo(flag) {
+    let email=(await this.getCurrentUser())?.email
+    if(email){
+      console.log(email)
       
-    })
+      let info=this.db.collection(this.dbpath, ref => ref.where('email','==', email )).get()
+      info.forEach(element => {
+        element.docs.forEach(x=> {
+          console.log(x.data())
+          localStorage.setItem('user', JSON.stringify(x.data()))
+          this.logUser(x.data(),flag)
+        })
+      });
+
+    }
+
     
   }
+  async logUser(user,flag) {
+    let obj={
+      user:user,
+      fecha: new Date(),
+      flag:flag
+    }
+    await this.db.collection('/loguser').add(obj)
+    
+  }
+
   async cambiarInfo(email,mod) {
     
     const docRef=this.db.collection(this.dbpath, ref => ref.where('email','==', email ))
@@ -99,7 +119,7 @@ export class AuthService {
   getUserList() { 
     return this.db
     .collection(this.dbpath)
-    .snapshotChanges();
+    .valueChanges({ idField: 'eventId' });
   }
   createUser(user) {
     return new Promise<any>((resolve, reject) =>{

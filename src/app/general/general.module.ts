@@ -13,7 +13,7 @@ import { HistoriaclinicaComponent } from './historiaclinica/historiaclinica.comp
   ],
   imports: [
     CommonModule,
-    GeneralRoutingModule
+    GeneralRoutingModule,
   ],
   exports:[
     NavbarComponent,

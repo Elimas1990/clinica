@@ -21,7 +21,6 @@ export class PerfilComponent implements OnInit {
           .valueChanges()
           .subscribe((response) => {
             this.data=response[0]
-           console.log(response[0])
             this.showImg=true
         });
       }
