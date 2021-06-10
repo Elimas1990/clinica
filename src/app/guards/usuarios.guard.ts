@@ -10,7 +10,7 @@ export class UsuariosGuard implements CanActivate {
   userData:any;
   constructor(private authService:AuthService){
     this.authService.auth.user.subscribe(x=> {
-      this.authService.db.collection('/usuarios', ref => ref.where('email','==', x.email ))
+      this.authService.db.collection('/usuarios', ref => ref.where('email','==', x?.email ))
         .valueChanges()
         .subscribe((response) => {
         this.userData=response[0]

@@ -16,6 +16,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "highcharts",
+              "jspdf-autotable",
+              "xlsx",
+              "moment",
+              "jspdf",
+              "raf",
+              "@babel/runtime-corejs3"
+           ],
             "outputPath": "dist/clinica",
             "index": "src/index.html",
             "main": "src/main.ts",

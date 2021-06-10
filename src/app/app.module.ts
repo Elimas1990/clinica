@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataTablesModule } from 'angular-datatables';
 import { registerLocaleData } from '@angular/common';
+import { GeneralModule } from './general/general.module';
 
 
 
@@ -33,7 +34,8 @@ import { registerLocaleData } from '@angular/common';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    DataTablesModule
+    DataTablesModule,
+    GeneralModule
   ],
   exports:[],
   providers: [{ provide: LOCALE_ID, useValue: 'es-Ar' }],

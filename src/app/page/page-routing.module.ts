@@ -10,13 +10,13 @@ import { SolicitarturnoComponent } from './solicitarturno/solicitarturno.compone
 import { UsuariosComponent } from './usuarios/usuarios.component';
 
 const routes: Routes = [
-  {path:'',component:BienvenidoComponent},
-  {path:'usuarios',component:UsuariosComponent,canActivate:[UsuariosGuard]},
-  {path:'perfil',component:PerfilComponent},
-  {path:'solicitarturno',component:SolicitarturnoComponent},
-  {path:'miturno',component:MiturnoComponent},
-  {path:'pacientes',component:PacientesComponent},
-  {path:'estadisticas',component:EstadisticasComponent}
+  {path:'',component:BienvenidoComponent,data: { animationState: 'home' }},
+  {path:'usuarios',component:UsuariosComponent,canActivate:[UsuariosGuard],data: { animationState: 'usuarios' }},
+  {path:'perfil',component:PerfilComponent,data: { animationState: 'perfil' }},
+  {path:'solicitarturno',component:SolicitarturnoComponent,data: { animationState: 'solicitarturno' }},
+  {path:'miturno',component:MiturnoComponent,data: { animationState: 'miturno' }},
+  {path:'pacientes',component:PacientesComponent,data: { animationState: 'pacientes' }},
+  {path:'estadisticas',component:EstadisticasComponent,data: { animationState: 'estadisticas' }}
 ];
 
 @NgModule({

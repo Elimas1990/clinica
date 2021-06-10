@@ -175,8 +175,7 @@ export class FormularioComponent implements OnInit {
   }
 
   async guardarUsuario(formulario){
-    console.log(formulario.getRawValue())
-    /*let objBase={
+    let objBase={
       nombre:formulario.getRawValue().nombre,
       apellido:formulario.getRawValue().apellido,
       email:formulario.getRawValue().email,
@@ -216,7 +215,7 @@ export class FormularioComponent implements OnInit {
     }
     catch(error){
       console.log(error)
-    }*/
+    }
   }
 
   volver(){

@@ -5,9 +5,9 @@ import { RegisterComponent } from './register/register.component';
 import { VerificaemailComponent } from './verificaemail/verificaemail.component';
 
 const routes: Routes = [
-  {path:'login',component:LoginComponent},
-  {path:'register',component:RegisterComponent},
-  {path:'verifica-email',component:VerificaemailComponent}
+  {path:'login',component:LoginComponent,data: { animationState: 'login' }},
+  {path:'register',component:RegisterComponent,data: { animationState: 'register' }},
+  {path:'verifica-email',component:VerificaemailComponent,data: { animationState: 'verifica' }}
 ];
 
 @NgModule({

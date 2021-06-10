@@ -169,4 +169,10 @@ export class AuthService {
     return subject.asObservable();
   }
 
+  getProf(){
+    
+    return this.db.collection(this.dbpath, ref => ref.where('tipouser','==', 'Profesional' ))
+
+  }
+
 }

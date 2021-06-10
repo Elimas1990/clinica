@@ -12,14 +12,28 @@ export class LoginComponent implements OnInit {
 
   userLogueado={email :'',pass:''}
   errorUsuario=false;
+  verUsers=false;
   users:any
+  usuariosPreCargados=[]
   constructor(private authService:AuthService,
     private route:Router) {
+      
+    this.cargarPreCartados('estebanlimas@hotmail.com')
+    this.cargarPreCartados('soledadpoli@hotmail.com')
+    this.cargarPreCartados('estebanlimas@gmail.com')
+      console.log(this.usuariosPreCargados)
     this.authService.getAll().subscribe(user => {
       this.users=user
     });
    }
 
+  cargarPreCartados(email){
+    this.authService.getUserInfoByEmail(email)
+    .subscribe(x=>{
+      x[0].pass="222222"
+        this.usuariosPreCargados.push(x[0])
+      })
+  }
   ngOnInit(): void {
   }
   autoCompletarUsuario(user){

@@ -32,6 +32,7 @@
                         data-bs-toggle="modal" data-bs-target="#modelPaciente">Cancelar</button>
                         <button class="btn btn-success" 
                         *ngIf="turnos.comentario" 
+                        (click)="selectTurnoCambiarEstado(turnos)"
                         data-bs-toggle="modal" data-bs-target="#modelComentario">Ver Comentario</button> 
                         <button class="btn btn-success" 
                         (click)="selectTurnoCambiarEstado(turnos,'Finalizado','encuesta')"
@@ -84,6 +85,7 @@
         </div>
         <div class="modal-body">
             <p>{{selectTurno?.comentario}}</p>
+            <p>{{selectTurno}}</p>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Cerrar</button>

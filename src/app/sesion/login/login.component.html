@@ -1,8 +1,8 @@
-<app-navbar></app-navbar>
+
 <div class="container">
     <div class="row justify-content-md-center">
-        <div class="col-lg-4">
-            <h1 class="text-center my-3">Login</h1>
+        <div class="col-lg-4 shadow mt-5 p-5 border border-rounded">
+            <h1 class="text-center mb-5">Login</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text" ><i class="fas fa-user"></i></span>
                 <input type="text" class="form-control" placeholder="Usuario" [(ngModel)]="userLogueado.email" />
@@ -12,26 +12,26 @@
                 <input type="password"  class="form-control" placeholder="Contraseña" [(ngModel)]="userLogueado.pass"/>
             </div>
 
-            <div class="text-center my-3">
-                <div class="btn-group shadow">
-                    <button type="button" class="btn btn-success" (click)="loginUsuario()">Ingresar</button>
-                    <div class="btn-group" role="group">
-                      <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        Autocompletar
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        <li><a class="dropdown-item" (click)="autoCompletarUsuario('admin')">Admin</a></li>
-                        <li><a class="dropdown-item" (click)="autoCompletarUsuario('paciente')">Paciente</a></li>
-                        <li><a class="dropdown-item" (click)="autoCompletarUsuario('profesional')">Profesional</a></li>
-                      </ul>
-                    </div>
-                </div>
-
-                  
+            <div class="text-center mt-5">
+                <button type="button" class="btn btn-outline-success shadow" (click)="loginUsuario()">Ingresar</button>
             </div>
             <div *ngIf="errorUsuario" class="alert alert-danger box-msg" role="alert">
                 <strong>Error!</strong> Los datos ingresados incorrectos
             </div>
         </div>
+    </div>
+    <div class="position-absolute bottom-0 end-0 m-5">
+        <div *ngIf="verUsers">
+            <div *ngFor="let user of usuariosPreCargados" style="width: 100px;height: 100px;" class="mb-3">
+                <img class="img-circle img w-100 h-100 rounded-circle border border-1 img-user" 
+                [src]="user.img" 
+                ngbTooltip="{{user.tipouser}}"
+                placement="left"
+                (click)="userLogueado.email=user.email;userLogueado.pass=user.pass">
+            </div>
+        </div>
+       
+        
+        <button class="btn btn-danger btn-lg rounded-circle " style="width: 100px;height: 100px;" (click)="verUsers=!verUsers">Users</button>
     </div>
 </div>

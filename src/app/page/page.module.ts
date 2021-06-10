@@ -23,6 +23,7 @@ import { TurnostodosComponent } from './miturno/turnostodos/turnostodos.componen
 import { PacientesComponent } from './pacientes/pacientes.component';
 import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { GraficoComponent } from './estadisticas/grafico/grafico.component';
 
 
 
@@ -44,6 +45,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
     TurnostodosComponent,
     PacientesComponent,
     EstadisticasComponent,
+    GraficoComponent,
   ],
   imports: [
     CommonModule,

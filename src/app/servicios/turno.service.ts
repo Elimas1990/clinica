@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,28 @@ export class TurnoService {
       .orderBy('fecha','desc')
       .limit(3))
 
+  }
+
+  getCantPorDia(fecha){
+    let ref=this.db.collection(this.dbpath, ref => 
+    ref.where('fecha','>=', moment(fecha,'DD/MM/YYYY').toDate() ).where('fecha','<', moment(fecha,'DD/MM/YYYY').add(1, 'days').toDate() ))
+    let snapshot=ref.get()
+    return snapshot
+  }
+  getCantPorDiaPorProfesional(fecha,prof){
+  
+    let ref=this.db.collection(this.dbpath, ref => 
+    ref.where('emailProfesional','==', prof) 
+    .where('fecha','>=', moment(fecha,'DD/MM/YYYY').toDate() )
+    .where('fecha','<', moment(fecha,'DD/MM/YYYY').add(1, 'days').toDate() ))
+    let snapshot=ref.get()
+    return snapshot
+  }
+
+  getMinMaxFechaTurnoSolicitado(orden){
+    let ref=this.db.collection(this.dbpath, ref => ref.orderBy('fecha', orden ).limit(1))
+    let snapshot=ref.get()
+    return snapshot
   }
 
   getTurnoHorario(email,especialidad,fecha):Observable<any>{

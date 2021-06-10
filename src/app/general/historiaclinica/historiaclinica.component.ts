@@ -20,7 +20,7 @@ export class HistoriaclinicaComponent implements OnInit {
     .subscribe(x=>{
       console.log(x)
       this.listaHistoriaClinica=x
-      this.nombreExcel=this.listaHistoriaClinica[0].apellidoPaciente+this.listaHistoriaClinica[0].nombrePaciente
+      this.nombreExcel=this.listaHistoriaClinica[0]?.apellidoPaciente+this.listaHistoriaClinica[0]?.nombrePaciente
     })
   }
   @ViewChild('TABLE', { static: false }) TABLE: ElementRef;  
