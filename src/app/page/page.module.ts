@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, SlicePipe } from '@angular/common';
 
 import { PageRoutingModule } from './page-routing.module';
 import { BienvenidoComponent } from './bienvenido/bienvenido.component';
@@ -24,6 +24,8 @@ import { PacientesComponent } from './pacientes/pacientes.component';
 import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { GraficoComponent } from './estadisticas/grafico/grafico.component';
+import { SliceArrayPipe } from '../pipes/slice-array.pipe';
+import { UserTypePipe } from '../pipes/user-type.pipe';
 
 
 
@@ -35,6 +37,8 @@ import { GraficoComponent } from './estadisticas/grafico/grafico.component';
     HorariosComponent,
     SolicitarturnoComponent,
     FilterPipe,
+    SliceArrayPipe,
+    UserTypePipe,
     VerturnosComponent,
     EspecialidadComponent,
     ProfesionalComponent,
@@ -45,7 +49,7 @@ import { GraficoComponent } from './estadisticas/grafico/grafico.component';
     TurnostodosComponent,
     PacientesComponent,
     EstadisticasComponent,
-    GraficoComponent,
+    GraficoComponent
   ],
   imports: [
     CommonModule,

@@ -15,6 +15,9 @@ exporting(Highcharts);
 })
 export class EstadisticasComponent implements OnInit {
 
+  objChart1:Object={}
+  objChart2:Object={}
+  objChart3:Object={}
   listaEspecialidades=[]
   listaCant=[]
   listaProfesionales=[]
@@ -24,6 +27,8 @@ export class EstadisticasComponent implements OnInit {
   minFechaTurno:any
   total:number
   profSelect:any
+  desde:any
+  hasta:any
   constructor(private turnosService:TurnoService,
     private espService:EspecialidadesService,
     private authService:AuthService,
@@ -38,8 +43,6 @@ export class EstadisticasComponent implements OnInit {
     })
   }
   
-
-  Highcharts: typeof Highcharts = Highcharts;
 
   chartOptions: Highcharts.Options ={
 
@@ -174,23 +177,29 @@ export class EstadisticasComponent implements OnInit {
     this.espService.getAll()
    .subscribe( x=> {
      this.total=x.length
+     let series=[]
      x.forEach(element => {
        this.listaEspecialidades.push(element.especialidad)
        this.turnosService.countByField(element.especialidad)
        .subscribe(x=>{
          this.listaCant.push(x.size)
-         this.chartOptions.series.push({
+         series.push({
            name: element.especialidad,
            data: [x.size],
-           type:'column'
+           type:'bar'
          })
        })
      });
-     
-     //console.log(this.chartOptions)
+     this.objChart1['series']=series
+     this.objChart1['title']={text:'Data'}
+     this.objChart1['xAxis']={
+        categories: [  'Especialidad'],
+          crosshair: true
+      }
    })
   }
   grafTurnosPorDia(){
+
     this.turnosService.getMinMaxFechaTurnoSolicitado('desc')
      .forEach(x=>
        { x.forEach(element => {
@@ -204,74 +213,65 @@ export class EstadisticasComponent implements OnInit {
          this.minFechaTurno=element.data()['fecha'].toDate()
        })
      }).then(x=> {
-       let max=moment(moment(this.maxFechaTurno).format('YYYY-MM-DD'))
-         let min=moment(moment(this.minFechaTurno).format('YYYY-MM-DD'))
-         let result=max.diff(min,'days')
-         for(let i=0;i<result;i++){
-           let siguiente=moment(moment(this.minFechaTurno).format('YYYY-MM-DD'))
-           this.listaFechas.push(siguiente.add(i, 'days').format('DD/MM/YYYY'))
-         }
-         let dat=[]
-         this.listaFechas.forEach(fecha => {
-           this.turnosService.getCantPorDia(fecha).forEach(x=>{
-             dat.push(x.size)
-           })
-         })
-         this.chartOptions2.series.push({
-           name: "Turnos",
-           data: dat,
-           type:'column'
-         })
+        let max=moment(moment(this.maxFechaTurno).format('YYYY-MM-DD'))
+        let min=moment(moment(this.minFechaTurno).format('YYYY-MM-DD'))
+        let result=max.diff(min,'days')
+        for(let i=0;i<result;i++){
+          let siguiente=moment(moment(this.minFechaTurno).format('YYYY-MM-DD'))
+          this.listaFechas.push(siguiente.add(i, 'days').format('DD/MM/YYYY'))
+        }
+        let dat=[]
+        this.listaFechas.forEach(fecha => {
+          this.turnosService.getCantPorDia(fecha).forEach(x=>{
+            dat.push(x.size)
+          })
+        })
+        this.objChart2['series']=[{
+        name: "Turnos",
+          data: dat,
+          type:'column'
+        }]
+        this.objChart2['title']={text:'Data'}
+        this.objChart2['xAxis']={
+        categories: this.listaFechas,
+          crosshair: true
+        }
      })
+    
   }
 
-  desde:any
-  hasta:any
-  mostrar3graf=false
   
+
   grafTurnosPorMedicoPorDia(){
       let fechas=[]
+      console.log(moment(this.hasta).format('YYYY-MM-DD'))
       let max=moment(moment(this.hasta).format('YYYY-MM-DD'))
       let min=moment(moment(this.desde).format('YYYY-MM-DD'))
       let result=max.diff(min,'days')
+      
       for(let i=0;i<result;i++){
         let siguiente=moment(moment(this.minFechaTurno).format('YYYY-MM-DD'))
-        this.fechasGraf3.push(siguiente.add(i, 'days').format('DD/MM/YYYY'))
+        console.log(siguiente.add(i, 'days').format('DD/MM/YYYY'))
+        fechas.push(siguiente.add(i, 'days').format('DD/MM/YYYY'))
       }
-      console.log(this.fechasGraf3)
       let dat=[]
-      this.fechasGraf3.forEach(x => {
+      fechas.forEach(x => {
         this.turnosService.getCantPorDiaPorProfesional(x,this.profSelect).forEach(x=>{
           dat.push(x.size)
         })
       })
-      this.chartOptions3.series.push({
+      
+      this.objChart3['series']=[{
         name: "Turnos",
         data: dat,
         type:'column'
-      })
-      console.log(this.chartOptions3)
-      this.mostrar3graf=true
-     /*.then(x=> {
-        let max=moment(moment(this.maxFechaTurno).format('YYYY-MM-DD'))
-         let min=moment(moment(this.minFechaTurno).format('YYYY-MM-DD'))
-         let result=max.diff(min,'days')
-         for(let i=0;i<result;i++){
-           let siguiente=moment(moment(this.minFechaTurno).format('YYYY-MM-DD'))
-           this.listaFechas.push(siguiente.add(i, 'days').format('DD/MM/YYYY'))
-         }
-         let dat=[]
-         this.listaFechas.forEach(fecha => {
-           this.turnosService.getCantPorDia(fecha).forEach(x=>{
-             dat.push(x.size)
-           })
-         })
-         this.chartOptions3.series.push({
-           name: "Turnos",
-           data: dat,
-           type:'column'
-         })
-     })*/
+      }]
+      this.objChart3['title']={text:'Data'}
+      this.objChart3['xAxis']={
+      categories: fechas,
+        crosshair: true
+      }
+
   }
 
 }

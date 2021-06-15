@@ -81,7 +81,7 @@ export class TurnosComponent implements OnInit {
     f.set({hour:Number(moment(bloq,'HH mm').format('H')),minute:Number(moment(bloq,'HH mm').format('m')),second:0,millisecond:0})
     this.authService.auth.user
     .forEach(x=>{
-      this.authService.getUserInfoByEmail2(x.email).subscribe((querySnapshot) => {
+      this.authService.getUserInfoByEmail2(x?.email).subscribe((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
             

@@ -24,22 +24,13 @@
       </table>
     </div>
   </div>
+
   <div class="row">
     <div class="col-lg-6">
-      <highcharts-chart 
-        [Highcharts]="Highcharts"
-        [options]="chartOptions"
-          *ngIf="chartOptions.series.length == total"
-        style="width: 100%; height: 400px; display: block;"
-      ></highcharts-chart>
+      <app-grafico [chartData]="objChart1"></app-grafico>
     </div>
     <div class="col-lg-6">
-      <highcharts-chart 
-        [Highcharts]="Highcharts"
-        [options]="chartOptions2"
-          *ngIf="chartOptions.series.length == total"
-        style="width: 100%; height: 400px; display: block;"
-      ></highcharts-chart>
+      <app-grafico [chartData]="objChart2"></app-grafico>
     </div>
   </div>
   <div class="row">
@@ -57,13 +48,8 @@
         <div class="input-group-text">Hasta</div>
         <input type="date" class="form-control" [(ngModel)]="hasta">
       </div>
-      
-      <highcharts-chart 
-        [Highcharts]="Highcharts"
-        [options]="chartOptions3"
-          *ngIf="mostrar3graf"
-        style="width: 100%; height: 400px; display: block;"
-      ></highcharts-chart>
+      <app-grafico [chartData]="objChart3"></app-grafico>
     </div>
+
   </div>
 </div>

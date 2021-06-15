@@ -22,10 +22,10 @@
                             <td>{{user.nombre}}</td>
                             <td>{{user.apellido}}</td>
                             <td>{{user.edad}}</td>
-                            <td>{{user.tipouser}}</td>
+                            <td [innerHtml]="user.tipouser | userType" class="text-center">{{user.tipouser | userType}}</td>
                             <td>{{user.email}}</td>
                             <td>{{user.dni}}</td>
-                            <td>{{user.especialidad}}</td>
+                            <td>{{user.especialidad | sliceArray}}</td>
                             <td>
                                 <div class="btn-group">
                                     <button class="btn btn-danger" *ngIf="!user.estado && user.tipouser =='Profesional'" (click)="statusProfesional(user.eventId,user.estado)"><i class="fa fa-user-slash"></i></button> 

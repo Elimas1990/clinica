@@ -14,7 +14,7 @@ export class PacientesComponent implements OnInit {
   constructor(private authService:AuthService,
     private turnosService:TurnoService) { 
       this.authService.auth.user.subscribe(u => {
-          turnosService.getTurnoX(u.email,'emailProfesional')
+          turnosService.getTurnoX(u?.email,'emailProfesional')
           .subscribe(x=> {
             let uniqueAges = [...new Set( x.map(obj => obj.emailPaciente)) ];
             uniqueAges.forEach(element => {

@@ -112,9 +112,11 @@ export class HistoriaclinicaComponent implements OnInit {
         //console.log(data.column.index)
       }
     })
-
+    doc.setFontSize(11);
+    let fecha:Date=new Date
+    doc.text('Emitido: '+moment(fecha).format('DD/MM/yyyy HH:mm').toString(), 10, 250);
     // below line for Open PDF document in new tab
-    //doc.output('dataurlnewwindow')
+    doc.output('dataurlnewwindow')
 
     // below line for Download PDF document  
     doc.save('historia'+this.nombreExcel+'.pdf');

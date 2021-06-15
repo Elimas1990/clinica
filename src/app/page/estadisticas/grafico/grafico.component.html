@@ -1,7 +1,6 @@
-{{chartOptions.series.length }}
-<highcharts-chart 
-[Highcharts]="Highcharts"
-[options]="chartOptions"
-*ngIf="mostrar"
-style="width: 100%; height: 400px; display: block;"
-></highcharts-chart>
+<highcharts-chart *ngIf="hay"
+  [Highcharts]="Highcharts"
+  [options]="chartOptions"
+  style="width: 100%; height: 400px; display: block;">
+</highcharts-chart>
+<button class="btn btn-danger" (click)="hay=!hay">va</button>

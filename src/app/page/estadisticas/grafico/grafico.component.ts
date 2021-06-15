@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import exporting from 'highcharts/modules/exporting';
+import { EspecialidadesService } from 'src/app/servicios/especialidades.service';
+import { TurnoService } from 'src/app/servicios/turno.service';
 exporting(Highcharts);
 
 @Component({
@@ -10,61 +12,60 @@ exporting(Highcharts);
 })
 export class GraficoComponent implements OnInit {
 
-  mostrar=false
-  @Input() set datosChart(datos){
-    this.chartOptions.series=datos.series
-    this.chartOptions.xAxis=datos.xAxis
-    this.chartOptions.title=datos.title
-    this.mostrar=true
-    console.log(this.chartOptions)
-  }
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  @Input() chartData
+  
   Highcharts: typeof Highcharts = Highcharts;
-  chartOptions: Highcharts.Options ={
+  chardata: any[] = [];
+  listaEspecialidades: any[] = [];
+  chartOptions: Highcharts.Options;
+  constructor(private espService:EspecialidadesService,
+    private turnosService:TurnoService) {}
+  ngOnInit() {
+    this.espService.getAll()
+   .subscribe( x=> {
+     x.forEach(element => {
+       this.listaEspecialidades.push(element.especialidad)
+       let dat=[]
+       this.turnosService.countByField(element.especialidad)
 
-    title: {
-        text: 'Turnos Solicitados'
-    },
-    exporting: {
-      enabled: true
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-       // categories: this.categorias,
-        crosshair: true
-    },
-    credits:{enabled:false},
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Cantidad de turnos'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{data: [1, 0, 1, 1, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2],
-    name: "Turnos",
-    type: "column"}
+       .subscribe(x=>{
+          dat.push(x.size)
+        })
+        this.chardata.push({
+          name: element.especialidad,
+          data: dat,
+          type:'column'
+        })
+       })
+      console.log(this.chartData)
+       this.chartOptions=this.chartData
+        //this.getChart() 
+     });
+    /*this.espService.rates$.subscribe((assets) => {
+      this.items$ = assets;
+      if (this.items$) {
+        this.items$.forEach((element) => {
+          this.chardata.push(element.rate);
+        });
+        this.getChart();
+      }
+    });*/
+  }
+  hay=false
+  getChart() {
+    this.chartOptions = {
+      xAxis: {
+        categories: [  'Especialidad'],
+          crosshair: true
+      },
+      series: this.chardata,
       
-    ]
+      title: {
+        text: "barchart",
+      },
+    };
+    this.hay=true
+    console.log(this.chartOptions)
   }
 
 }
