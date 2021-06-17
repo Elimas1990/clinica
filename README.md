@@ -11,3 +11,7 @@
 ¿Como veo los turnos a gestionar de mis pacientes?
 
 ![verTurnosProf](https://user-images.githubusercontent.com/68596199/122468025-914ecc00-cf91-11eb-8736-08cbbcebfccc.gif)
+
+¿Donde y como el Administrador puede administrar Usuarios y crearlos?
+
+![administrarUsuarios](https://user-images.githubusercontent.com/68596199/122468766-7fb9f400-cf92-11eb-99bd-0b18fd8739f6.gif)
