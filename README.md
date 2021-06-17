@@ -1,27 +1,29 @@
 # Clinica
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.5.
+¿Como saco un turno?
 
-## Development server
+![comoSacarTurno](https://user-images.githubusercontent.com/68596199/122464709-898d2880-cf8d-11eb-931d-35613fc17c4c.gif)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+¿Como saco datos de los turnos sacados?
 
-## Code scaffolding
+![verTurnosPaciente](https://user-images.githubusercontent.com/68596199/122467693-33ba7f80-cf91-11eb-80d7-53768ad46007.gif)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+¿Como veo los turnos a gestionar de mis pacientes?
 
-## Build
+![verTurnosProf](https://user-images.githubusercontent.com/68596199/122468025-914ecc00-cf91-11eb-8736-08cbbcebfccc.gif)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+¿Donde y como el Administrador puede administrar Usuarios y crearlos?
 
-## Running unit tests
+![administrarUsuarios](https://user-images.githubusercontent.com/68596199/122468766-7fb9f400-cf92-11eb-99bd-0b18fd8739f6.gif)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Los Administradores puede verificar el logueo de usuarios y estadisticas de los turnos
 
-## Running end-to-end tests
+![estadisticas](https://user-images.githubusercontent.com/68596199/122469164-01118680-cf93-11eb-9f16-ed5233dc7f09.PNG)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Los Profesionales pueden un resumen sus pacientes y sus historias clinicas
 
-## Further help
+![seccionPacientes](https://user-images.githubusercontent.com/68596199/122472898-8a2abc80-cf97-11eb-9190-966f067c9681.gif)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Los Profesionales pueden desde su Perfil administrar los turnos que brindan. Dias, franja horaria en la que trabajan por especialidad y bloques de tiempo para las mismas
+
+![administrarHorarios](https://user-images.githubusercontent.com/68596199/122473152-d544cf80-cf97-11eb-9382-12558918203b.gif)
