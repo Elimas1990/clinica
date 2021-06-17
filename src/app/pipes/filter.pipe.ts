@@ -7,7 +7,7 @@ import * as moment from "moment";
 export class FilterPipe implements PipeTransform {
 
   transform(items: any[], profesional: string): any[] {
-    //console.log(profesional)
+    
     if(!items) return [];
     if(!profesional) return items;
     
@@ -18,6 +18,15 @@ export class FilterPipe implements PipeTransform {
     
 
     return items.filter( it => {
+      let check
+      if(it.historia){
+        let data=Object.keys(it.historia)
+        check = data.filter(function(item) {
+          return item.includes(profesional)
+        })
+      }
+      
+      
       if(it.nombreProf.toLowerCase().includes(profesional) 
       || it.apellidoProf.toLowerCase().includes(profesional)
       || it.especialidad?.toLowerCase().includes(profesional)
@@ -25,6 +34,12 @@ export class FilterPipe implements PipeTransform {
       || it.nombrePaciente?.toLowerCase().includes(profesional)
       || it.estado?.toLowerCase().includes(profesional)
       || it.duracion?.toLowerCase().includes(profesional)
+      || it.historia?.presion ==profesional
+      || it.historia?.temp ==profesional
+      || it.historia?.peso ==profesional
+      || it.historia?.altura ==profesional
+      || it.estado?.toLowerCase().includes(profesional)
+      //|| check
       || moment(it.fecha.toDate()).format('DD/MM/YYYY HH:mm').toString().includes(profesional)){
         return it
       }
