@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import * as Highcharts from 'highcharts';
-import exporting from 'highcharts/modules/exporting';
 import { EspecialidadesService } from 'src/app/servicios/especialidades.service';
 import { TurnoService } from 'src/app/servicios/turno.service';
 import * as moment from 'moment';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { UserlogService } from 'src/app/servicios/userlog.service';
-exporting(Highcharts);
 
 @Component({
   selector: 'app-estadisticas',
@@ -18,6 +15,7 @@ export class EstadisticasComponent implements OnInit {
   objChart1:Object={}
   objChart2:Object={}
   objChart3:Object={}
+  objChart4:Object={}
   listaEspecialidades=[]
   listaCant=[]
   listaProfesionales=[]
@@ -44,7 +42,7 @@ export class EstadisticasComponent implements OnInit {
   }
   
 
-  chartOptions: Highcharts.Options ={
+ /* chartOptions: Highcharts.Options ={
 
     title: {
         text: 'Turnos Solicitados'
@@ -164,7 +162,7 @@ export class EstadisticasComponent implements OnInit {
     series: [
       
     ]
-  }
+  }*/
   ngOnInit(): void {
      // grafico turnos por dia
     this.grafTurnosPorDia()
@@ -174,28 +172,60 @@ export class EstadisticasComponent implements OnInit {
   }
 
   grafTurnosPorEsp(){
-    this.espService.getAll()
-   .subscribe( x=> {
-     this.total=x.length
-     let series=[]
-     x.forEach(element => {
-       this.listaEspecialidades.push(element.especialidad)
-       this.turnosService.countByField(element.especialidad)
-       .subscribe(x=>{
-         this.listaCant.push(x.size)
-         series.push({
-           name: element.especialidad,
-           data: [x.size],
-           type:'bar'
-         })
-       })
-     });
+    let total=0
+    let series=[]
+    let data=[]
+    this.turnosService.getAll().subscribe(x=>{
+      x.forEach(element => {
+        if(element.estado == "Finalizado"){
+          total=total+1
+        }
+      });
+      this.espService.getAll()
+      .subscribe( x=> {
+        
+        x.forEach(element => {
+        
+        this.listaEspecialidades.push(element.especialidad)
+        this.turnosService.countByField(element.especialidad)
+        .subscribe(x=>{
+          if(x.size > 0){
+          this.listaCant.push(x.size)
+          data.push([element.especialidad,(x.size*100)/total])}
+        })
+      })
+      series.push({
+        name: 'Esp',
+        data: data,
+        type:'pie',
+        innerSize: '50%',
+      })
+    })
+    
      this.objChart1['series']=series
-     this.objChart1['title']={text:'Data'}
-     this.objChart1['xAxis']={
-        categories: [  'Especialidad'],
-          crosshair: true
+     //this.objChart1['series'].setData=[]
+     this.objChart1['credits']={enabled: false}
+     this.objChart1['title']={text:'Turnos por especialidad'}
+     this.objChart1['tooltip']= {
+      pointFormat: '{series.name}: <b>{point.y:.2f}%</b><br/>',
+      valueSuffix: ' cant'
+      },
+     this.objChart1['plotOptions']={
+      pie: {
+          dataLabels: {
+              enabled: true,
+              distance: -50,
+              style: {
+                  fontWeight: 'bold',
+                  color: 'white'
+              }
+          },
+          startAngle: -90,
+          endAngle: 90,
+          center: ['50%', '75%'],
+          size: '110%'
       }
+    }
    })
   }
   grafTurnosPorDia(){
@@ -231,7 +261,8 @@ export class EstadisticasComponent implements OnInit {
           data: dat,
           type:'column'
         }]
-        this.objChart2['title']={text:'Data'}
+        this.objChart2['credits']={enabled: false}
+        this.objChart2['title']={text:'Turnos por día'}
         this.objChart2['xAxis']={
         categories: this.listaFechas,
           crosshair: true
@@ -239,35 +270,46 @@ export class EstadisticasComponent implements OnInit {
      })
     
   }
-
-  
-
   grafTurnosPorMedicoPorDia(){
       let fechas=[]
-      console.log(moment(this.hasta).format('YYYY-MM-DD'))
-      let max=moment(moment(this.hasta).format('YYYY-MM-DD'))
-      let min=moment(moment(this.desde).format('YYYY-MM-DD'))
+      let max=moment(this.hasta,'YYYY-MM-DD')
+      let min=moment(this.desde,'YYYY-MM-DD')
       let result=max.diff(min,'days')
-      
       for(let i=0;i<result;i++){
-        let siguiente=moment(moment(this.minFechaTurno).format('YYYY-MM-DD'))
-        console.log(siguiente.add(i, 'days').format('DD/MM/YYYY'))
+        let siguiente=moment(min,'YYYY-MM-DD')
         fechas.push(siguiente.add(i, 'days').format('DD/MM/YYYY'))
       }
-      let dat=[]
+      let datSolicitados=[]
+      let datFinalizados=[]
       fechas.forEach(x => {
-        this.turnosService.getCantPorDiaPorProfesional(x,this.profSelect).forEach(x=>{
-          dat.push(x.size)
+        this.turnosService.getCantPorDiaPorProfesional(x,this.profSelect,null).forEach(x=>{
+          datSolicitados.push(x.size)
+        })
+        this.turnosService.getCantPorDiaPorProfesional(x,this.profSelect,'Finalizado').forEach(x=>{
+          datFinalizados.push(x.size)
         })
       })
       
       this.objChart3['series']=[{
         name: "Turnos",
-        data: dat,
+        data: datSolicitados,
         type:'column'
       }]
-      this.objChart3['title']={text:'Data'}
+      this.objChart3['credits']={enabled: false}
+      this.objChart3['title']={text:'Turnos solicitados'}
       this.objChart3['xAxis']={
+      categories: fechas,
+        crosshair: true
+      }
+
+      this.objChart4['series']=[{
+        name: "Turnos",
+        data: datFinalizados,
+        type:'column'
+      }]
+      this.objChart4['credits']={enabled: false}
+      this.objChart4['title']={text:'Turnos finalizados'}
+      this.objChart4['xAxis']={
       categories: fechas,
         crosshair: true
       }

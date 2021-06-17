@@ -64,12 +64,21 @@ export class TurnoService {
     let snapshot=ref.get()
     return snapshot
   }
-  getCantPorDiaPorProfesional(fecha,prof){
-  
-    let ref=this.db.collection(this.dbpath, ref => 
-    ref.where('emailProfesional','==', prof) 
-    .where('fecha','>=', moment(fecha,'DD/MM/YYYY').toDate() )
-    .where('fecha','<', moment(fecha,'DD/MM/YYYY').add(1, 'days').toDate() ))
+  getCantPorDiaPorProfesional(fecha,prof,estado){
+    let ref
+    if(estado){
+      ref=this.db.collection(this.dbpath, ref => 
+        ref.where('emailProfesional','==', prof) 
+        .where('estado','==', estado) 
+        .where('fecha','>=', moment(fecha,'DD/MM/YYYY').toDate() )
+        .where('fecha','<', moment(fecha,'DD/MM/YYYY').add(1, 'days').toDate() ))
+    }else{
+      ref=this.db.collection(this.dbpath, ref => 
+        ref.where('emailProfesional','==', prof)
+        .where('fecha','>=', moment(fecha,'DD/MM/YYYY').toDate() )
+        .where('fecha','<', moment(fecha,'DD/MM/YYYY').add(1, 'days').toDate() ))
+    }
+   
     let snapshot=ref.get()
     return snapshot
   }

@@ -1,9 +1,9 @@
 <div class="container-fluid p-0">
 
     <div class="container">
-        <div class="p-4 p-md-5 mb-4 text-white rounded bg shadow">
-            <div class="col-md-6 px-0 p-md-5 mb-4">
-                <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
+        <div class="p-4 p-md-5 my-4 text-white rounded bg shadow" [appImgBanner]="userData?.tipouser">
+            <div class="col-md-6 px-0 p-md-5 mb-4" >
+                <h1 class="display-4 fst-italic" [appInfoUser]="userData?.tipouser">Title of a longer featured blog post</h1>
                 <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
                 <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
             </div>
@@ -12,12 +12,12 @@
             <div class="col-md-6">
               <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow h-md-250 position-relative big-btn" routerLink="/miturno">
                 <div class="col p-4 d-flex flex-column position-static">
-                  <h3 class="mb-0" *ngIf="userData?.tipouser == 'Administrativo'">Turnos</h3>
+                  <h3 class="mb-0" *ngIf="userData?.tipouser == 'Administrativo'" >Turnos</h3>
                   <h3 class="mb-0" *ngIf="userData?.tipouser != 'Administrativo'">Mis Turnos</h3>
-                  <div class="mb-1 text-muted">Nov 12</div>
+                  <div class="mb-1 text-muted">Administra turnos</div>
                   <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
                 </div>
-                <div class="col-auto d-none d-lg-block">
+                <div class="col-auto d-none d-lg-block" [appImgBanner]="userData?.tipouser">
                     <img [src]="misturnosimg" width="200" height="250">
         
                 </div>
@@ -31,7 +31,7 @@
                   <p class="mb-auto">Saca turnos desde la comodidad de tu casa al instante con nuestros exelentes profesionales</p>
                   
                 </div>
-                <div class="col-auto d-none d-lg-block">
+                <div class="col-auto d-none d-lg-block" [appImgBanner]="userData?.tipouser">
          
                     <img [src]="sacarturnos" width="200" height="250">
         

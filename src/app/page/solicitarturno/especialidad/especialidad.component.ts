@@ -11,7 +11,7 @@ export class EspecialidadComponent implements OnInit {
 
   @Input() listaEspecialidades
   @Output() espSelecionado= new EventEmitter<any>()
-  
+  color='cyan'
   constructor(private route:Router) { }
 
   ngOnInit(): void {

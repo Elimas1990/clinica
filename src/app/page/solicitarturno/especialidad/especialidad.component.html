@@ -6,11 +6,11 @@
     </div>
 </div>
 <div class="row justify-content-md-center">
-    <div class="col-lg-4 text-center mb-3" *ngFor="let esp of listaEspecialidades">
+    <div class="col-lg-4 text-center mb-3" *ngFor="let esp of listaEspecialidades" >
         <!--<div class="rounded-circle border p-5 border-5 big-btn" >
             <img [src]="esp.icon" class="img-icon ">
         </div>-->
-        <img [src]="esp.icon"  class="bd-placeholder-img  border border-5  rounded-circle img-icon big-btn" (click)="selectEspecialidad(esp)">
+        <img [src]="esp.icon" [appFondoProf]="color" class="bd-placeholder-img  border border-5  rounded-circle img-icon big-btn" (click)="selectEspecialidad(esp)">
         <h2>{{esp.especialidad}}</h2>
        
     </div>

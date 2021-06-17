@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import exporting from 'highcharts/modules/exporting';
 import { EspecialidadesService } from 'src/app/servicios/especialidades.service';
@@ -10,18 +10,36 @@ exporting(Highcharts);
   templateUrl: './grafico.component.html',
   styleUrls: ['./grafico.component.css']
 })
-export class GraficoComponent implements OnInit {
+export class GraficoComponent implements OnChanges {
 
   @Input() chartData
   
+ 
   Highcharts: typeof Highcharts = Highcharts;
-  chardata: any[] = [];
-  listaEspecialidades: any[] = [];
+  //chardata: any[] = [];
+  //listaEspecialidades: any[] = [];
   chartOptions: Highcharts.Options;
+  hay=false
+  
   constructor(private espService:EspecialidadesService,
-    private turnosService:TurnoService) {}
+    private turnosService:TurnoService) {
+      console.log(this.chartOptions)
+    }
+    ngOnChanges(changes: SimpleChanges) {
+      console.log(this.chartData)
+    }
+    
   ngOnInit() {
-    this.espService.getAll()
+    this.chartOptions=this.chartData
+    
+    /*if(this.chartOptions){
+      setTimeout(() => {
+        this.hay=true
+      }, 2000);
+    }
+    
+    
+    /*this.espService.getAll()
    .subscribe( x=> {
      x.forEach(element => {
        this.listaEspecialidades.push(element.especialidad)
@@ -39,8 +57,8 @@ export class GraficoComponent implements OnInit {
        })
       console.log(this.chartData)
        this.chartOptions=this.chartData
-        //this.getChart() 
-     });
+        this.getChart() 
+     });*/
     /*this.espService.rates$.subscribe((assets) => {
       this.items$ = assets;
       if (this.items$) {
@@ -51,9 +69,12 @@ export class GraficoComponent implements OnInit {
       }
     });*/
   }
-  hay=false
-  getChart() {
+  
+  /*getChart() {
     this.chartOptions = {
+      credits: {
+        enabled: false
+      },
       xAxis: {
         categories: [  'Especialidad'],
           crosshair: true
@@ -66,6 +87,6 @@ export class GraficoComponent implements OnInit {
     };
     this.hay=true
     console.log(this.chartOptions)
-  }
+  }*/
 
 }

@@ -26,30 +26,35 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-6">
-      <app-grafico [chartData]="objChart1"></app-grafico>
+    <div class="col-lg-6 text-center">
+      <app-grafico [chartData]="objChart1" ></app-grafico>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 text-center">
       <app-grafico [chartData]="objChart2"></app-grafico>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-6">
+  <div class="row justify-content-md-center">
+    <div class="col-lg-8">
       <div class="input-group">
         <div class="input-group-text">Medico</div>
         <select name="" id="" class="form-control" [(ngModel)]="profSelect" placeholder="Elegir Medico">
           <option *ngFor="let prof of listaProfesionales" [value]="prof.email" >{{prof.nombre}} {{prof.apellido}}</option>
         </select>
-        <button class="btn btn-danger" (click)="grafTurnosPorMedicoPorDia()">Ver</button>
-      </div>
-      <div class="input-group">
         <div class="input-group-text">Desde</div>
         <input type="date" class="form-control" [(ngModel)]="desde">
         <div class="input-group-text">Hasta</div>
         <input type="date" class="form-control" [(ngModel)]="hasta">
+        <button class="btn btn-danger" (click)="grafTurnosPorMedicoPorDia()">Ver</button>
       </div>
+      
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 text-center">
       <app-grafico [chartData]="objChart3"></app-grafico>
     </div>
-
+    <div class="col-lg-6 text-center">
+        <app-grafico [chartData]="objChart4"></app-grafico>
+    </div>
   </div>
 </div>

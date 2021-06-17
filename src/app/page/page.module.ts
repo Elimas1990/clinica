@@ -26,6 +26,9 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { GraficoComponent } from './estadisticas/grafico/grafico.component';
 import { SliceArrayPipe } from '../pipes/slice-array.pipe';
 import { UserTypePipe } from '../pipes/user-type.pipe';
+import { FondoProfDirective } from '../directivas/fondo-prof.directive';
+import { InfoUserDirective } from '../directivas/info-user.directive';
+import { ImgBannerDirective } from '../directivas/img-banner.directive';
 
 
 
@@ -39,6 +42,9 @@ import { UserTypePipe } from '../pipes/user-type.pipe';
     FilterPipe,
     SliceArrayPipe,
     UserTypePipe,
+    FondoProfDirective,
+    InfoUserDirective,
+    ImgBannerDirective,
     VerturnosComponent,
     EspecialidadComponent,
     ProfesionalComponent,
