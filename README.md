@@ -15,3 +15,7 @@
 ¿Donde y como el Administrador puede administrar Usuarios y crearlos?
 
 ![administrarUsuarios](https://user-images.githubusercontent.com/68596199/122468766-7fb9f400-cf92-11eb-99bd-0b18fd8739f6.gif)
+
+Los Administradores puede verificar el logueo de usuarios y estadisticas de los turnos
+
+![estadisticas](https://user-images.githubusercontent.com/68596199/122469164-01118680-cf93-11eb-9f16-ed5233dc7f09.PNG)
